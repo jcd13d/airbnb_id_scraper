@@ -1,13 +1,11 @@
 # airbnb_id_scraper
 
-
 # TODO
 ## Listing Indexer
 * Get code to final V1 deployment state (clean it up)
 * decide on initial trial areas for scraping
   * break initial areas into reasonable chunks for distributing 
     the load on aws job
-
 
 ## ID Batch Job Configuration Creator
 * Write script to get unique IDs from Listing Index
@@ -28,6 +26,11 @@
   * see if any other valuable information in the returned json
   * make parsing of returned json more robust?
   * write the code!
+* ### Review Scraper
+  * decide on storage format/pull frequency
+  * write the code!
+* ### Other Scrapers??
+  * Amenities?
 
 ## Questions
 * should we use proxies to request from AWS? Or just run the 
