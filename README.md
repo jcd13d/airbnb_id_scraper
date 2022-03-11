@@ -7,16 +7,12 @@
   * break initial areas into reasonable chunks for distributing 
     the load on aws job
 
-## ID Batch Job Configuration Creator
-* Write script to get unique IDs from Listing Index
-* Based on configurable batch job size - break those IDs into
-  evenly distributed batches of listings to run on each node
-* Figure out how to load this into a db on s3 so we can query 
-  it for run configuration based on environment index
-
 ## ID Based Detail Scraper
 * ### Occupancy Scraper
   * decide on storage format/pull frequency
+    * Storage format - append all data from pull with date it
+      was pulled. Post process and remove anywhere the 
+      availability switches from the most recent value
   * Lets say we see one week a listing goes from unbooked to 
     booked... how do we know what price it was booked at?
   * write the code!
@@ -26,11 +22,29 @@
   * see if any other valuable information in the returned json
   * make parsing of returned json more robust?
   * write the code!
+* ### Detailed Price ID scraper
+  * Need to pull the weird ID you use to get pricing...
+  * This shouldnt change at least... so we can probably pull it
+    then join it to the master ID table in a postprocessing script
 * ### Review Scraper
   * decide on storage format/pull frequency
   * write the code!
+* ### Pricing ID Scraper
 * ### Other Scrapers??
   * Amenities?
+
+## Post Processing / Other Scripts
+### ID Batch Job Configuration Creator
+* Write script to get unique IDs from Listing Index
+* Based on configurable batch job size - break those IDs into
+  evenly distributed batches of listings to run on each node
+* Figure out how to load this into a db on s3 so we can query
+  it for run configuration based on environment index
+### Join Detailed Pricing ID to Master ID table?
+* to avoid having to ping airbnb for it every time? Maybe we can
+  just query a db with the mapping?
+  * and on error, run the request to get the id again if it changes
+    for some reason
 
 ## Questions
 * should we use proxies to request from AWS? Or just run the 

@@ -1,6 +1,9 @@
+# TODO add error handling
 import requests
 import json
 import os
+from occupancy.parser import parse_occupancy
+import datetime
 
 
 def get_detailed_price_config(id):
@@ -66,10 +69,18 @@ def get_id_batch(index):
     return id_batches[index]
 
 
-if __name__ == "__main__":
-    index = int(os.environ['AWS_BATCH_JOB_ARRAY_INDEX'])
-    print(index)
+def main(index):
     for id in get_id_batch(index):
         config = get_detailed_price_config(id)
         response = request_occupancy(**config['requests_args'])
-        print(json.dumps(json.loads(response.text), indent=4))
+        data = json.loads(response.text)
+        with open(f"data/{id}.json", "w") as f:
+            json.dump(data, f, indent=4)
+        parse_occupancy(id, data).to_parquet(f"data/parquet/{id}.parquet")
+        # parse_occupancy(id, data).to_csv(f"data/csv/{id}.csv")
+
+
+if __name__ == "__main__":
+    index = int(os.environ['AWS_BATCH_JOB_ARRAY_INDEX'])
+    main(index)
+
