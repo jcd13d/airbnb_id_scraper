@@ -1,8 +1,10 @@
 import pandas as pd
 import datetime
+import json
 
 
-def parse_occupancy(id, occ_dict):
+def parse_occupancy(id, response):
+    occ_dict = json.loads(response.text)
     time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     data_dict = {}
     data_dict["date"] = []
