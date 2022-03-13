@@ -10,6 +10,10 @@
 ## ID Based Detail Scraper
 * Right now writing parquet in append mode... need to think about 
   paritioning... may need to post process repartition?
+* TODO 
+  * Think about other errors to catch 
+    * simulate malformed input response/other request errors`
+    * Index out of bounds error? Some tasks rely on indexing
 * ### Occupancy Scraper
   * decide on storage format/pull frequency
     * Storage format - append all data from pull with date it
