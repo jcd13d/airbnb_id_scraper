@@ -22,5 +22,7 @@ if __name__ == "__main__":
 
 
     # Start: 12/03/2022 21:26:03 for miami run
+    # killed 1103PM ran 1843 occupancy 23:03
+    # 2.3 hours
 
 

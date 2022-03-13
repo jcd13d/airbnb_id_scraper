@@ -68,3 +68,7 @@
 * How to analyze errors/counts of errors to know if there is 
   something really wrong with code and not just a random api 
   failure?
+
+# Notes
+* running very slow... huge limitation is proxies when we get a
+  bad ip... Also just slower requests I think
