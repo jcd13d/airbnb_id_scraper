@@ -5,8 +5,8 @@ import os
 
 def get_scrapers(id_):
     scrapers = [
-        # OccupancyScraper(id_),
-        PricingScraper(id_)
+        OccupancyScraper(id_),
+        # PricingScraper(id_)
     ]
     return scrapers
 

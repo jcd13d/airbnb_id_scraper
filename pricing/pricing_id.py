@@ -13,5 +13,4 @@ def get_pricing_id(id):
     x = json.loads(tag.text)
     string = x['niobeMinimalClientData'][0][0]
     new_id = json.loads(string[string.find("{"):])['id']
-
     return new_id

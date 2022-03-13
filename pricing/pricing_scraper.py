@@ -2,7 +2,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 import pyarrow as pa
 from scraper_base.scraper import IdScraper
-from config.constants import PRICING_CONFIG_LOCATION, ID_CONFIG_LOCATION
+from config.constants import PRICING_CONFIG_LOCATION, ID_CONFIG_LOCATION, NUM_REQUEST_TRIES
 from pricing.parser import parse_pricing
 from pricing.pricing_id import get_pricing_id
 import datetime
@@ -26,7 +26,21 @@ class PricingScraper(IdScraper):
         return id_config['id_configs'][self.index]
 
     def get_pricing_id(self, id):
-        return get_pricing_id(id)
+        new_id = None
+        for i in range(NUM_REQUEST_TRIES):
+            if i > 0:
+                print(f"try {i + 1} getting pricing ID")
+            try:
+                new_id = get_pricing_id(id)
+            except KeyError as e:
+                print(f"Key error in pricing id: {e}")
+                continue
+            break
+
+        if new_id is None:
+            raise()
+
+        return new_id
 
     def insert_id_into_config(self, id, config):
         cfg = copy.deepcopy(config)

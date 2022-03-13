@@ -1,4 +1,5 @@
 import requests
+from config.constants import NUM_REQUEST_TRIES
 
 
 class IdScraper:
@@ -55,10 +56,31 @@ class IdScraper:
         """
         raise NotImplementedError("Not Implemented")
 
+    def request_and_parse(self, id_, request_config):
+        parsed = None
+        for i in range(NUM_REQUEST_TRIES):
+
+            if i > 0:
+                print(f"try {i + 1} doing request and parse")
+
+            try:
+                result = self.make_request(**request_config)
+                parsed = self.parse_result(id_, result)
+            except KeyError as e:
+                print(f"Key error in request/parse: {e}")
+                continue    # continues thru loop if fails
+            break       # if different error or out of tries break
+
+        if parsed is None:
+            raise()
+
+        return parsed
+
     def run(self):
         for id_ in self.ids:
             for cfg in self.config['configs']:
                 edited_config = self.insert_id_into_config(id_, cfg)
-                result = self.make_request(**edited_config["request_config"])
-                parsed = self.parse_result(id_, result)
+                # result = self.make_request(**edited_config["request_config"])
+                # parsed = self.parse_result(id_, result)
+                parsed = self.request_and_parse(id_, edited_config['request_config'])
                 self.write_result(id_, parsed, cfg['out_location'])
