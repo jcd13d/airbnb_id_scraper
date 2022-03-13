@@ -60,6 +60,6 @@ class PricingScraper(IdScraper):
     def write_result(self, id, result, out_location):
         table = pa.Table.from_pandas(result)
         pq.write_to_dataset(table, root_path=out_location)
-        print(pd.read_parquet(out_location))
+        # print(pd.read_parquet(out_location))
 
 

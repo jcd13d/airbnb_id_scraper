@@ -105,9 +105,13 @@
             "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"c69f3244e22206ff0c15b7e42d0c379de2408e4312820f8056c508e5b952ed15\"}}"
           ]
         ],
-        "api_url": "https://www.airbnb.com/api/v3/StaysPdpSections"
+        "api_url": "https://www.airbnb.com/api/v3/StaysPdpSections",
+        "proxies": {
+            "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112",
+            "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112"
+        }
       },
-      "out_location": "data/output/price"
+      "out_location": "data/output/price_miami"
     }
   ]
 }
