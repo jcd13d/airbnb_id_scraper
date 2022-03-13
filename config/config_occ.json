@@ -62,7 +62,7 @@
         ],
         "api_url": "https://www.airbnb.com/api/v3/PdpAvailabilityCalendar"
       },
-      "out_location": "data/output/parquets"
+      "out_location": "data/output/occ"
     }
   ]
 }

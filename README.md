@@ -8,6 +8,8 @@
     the load on aws job
 
 ## ID Based Detail Scraper
+* Right now writing parquet in append mode... need to think about 
+  paritioning... may need to post process repartition?
 * ### Occupancy Scraper
   * decide on storage format/pull frequency
     * Storage format - append all data from pull with date it
@@ -16,11 +18,19 @@
   * Lets say we see one week a listing goes from unbooked to 
     booked... how do we know what price it was booked at?
   * write the code!
+    * About done i think...
+    * need to decide how to append data to bucket, postprocessing, etc
 * ### Detailed Price Scraper 
   * decide on storage format/pull frequency
   * do we want future prices? how many? 
   * see if any other valuable information in the returned json
   * make parsing of returned json more robust?
+    * For some reason fails ~50% of the time, key we need isnt returned 
+      to the json... any way to improve that?
+  * second pricing ID
+    * setting up to ask for it every time
+    * solution would be to create mapping and query databse for it
+      each time
   * write the code!
 * ### Detailed Price ID scraper
   * Need to pull the weird ID you use to get pricing...

@@ -1,10 +1,12 @@
 from occupancy.occupancy_scraper import OccupancyScraper
+from pricing.pricing_scraper import PricingScraper
 import os
 
 
 def get_scrapers(id_):
     scrapers = [
-        OccupancyScraper(id_)
+        # OccupancyScraper(id_),
+        PricingScraper(id_)
     ]
     return scrapers
 
