@@ -6,6 +6,15 @@
 * decide on initial trial areas for scraping
   * break initial areas into reasonable chunks for distributing 
     the load on aws job
+## Proxies
+* run benchmarks for how many proxies dont work etc, how long to wait
+* see if benchmark matches what we see in practice, if not we may need 
+  vary the headers etc
+* Quick run with  my IP and no timeouts, try on AWS so we dont care if IP blocked
+* Add variables that track types of failures in scraper class, output
+  stats at the end of run 
+## Headers
+* see i
 
 ## ID Based Detail Scraper
 * Right now writing parquet in append mode... need to think about 

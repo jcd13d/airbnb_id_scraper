@@ -1,6 +1,10 @@
 import pandas as pd
 import pyarrow.parquet as pq
 import pyarrow as pa
+import requests.exceptions
+import urllib3
+import traceback
+
 from scraper_base.scraper import IdScraper
 from config.constants import PRICING_CONFIG_LOCATION, ID_CONFIG_LOCATION, NUM_REQUEST_TRIES
 from pricing.parser import parse_pricing
@@ -27,14 +31,36 @@ class PricingScraper(IdScraper):
 
     def get_pricing_id(self, id):
         new_id = None
+        self.requests_count += 1
         for i in range(NUM_REQUEST_TRIES):
             if i > 0:
                 print(f"try {i + 1} getting pricing ID")
             try:
                 new_id = get_pricing_id(id)
             except KeyError as e:
+                self.key_error += 1
                 print(f"Key error in pricing id: {e}")
                 continue
+            except urllib3.util.retry.MaxRetryError as e:
+                self.max_retry += 1
+                traceback.print_exc()
+                print(f"MaxRetryError triggered during pricing ID request: {e}")
+                continue  # continues thru loop if fails
+            except requests.exceptions.ProxyError as e:
+                self.proxy += 1
+                traceback.print_exc()
+                print(f"ProxyError triggered during pricing ID request: {e}")
+                continue  # continues thru loop if fails
+            except requests.exceptions.ConnectionError as e:
+                self.connection += 1
+                traceback.print_exc()
+                print(f"Connection Error triggered during pricing ID request: {e}")
+                continue  # continues thru loop if fails
+            # except requests.exceptions.SSLError as e:
+            #     self.ssl += 1
+            #     traceback.print_exc()
+            #     print(f"SSL Error triggered (usually max retries) during pricing ID request: {e}")
+            #     continue  # continues thru loop if fails
             break
 
         if new_id is None:
@@ -58,6 +84,7 @@ class PricingScraper(IdScraper):
         return parse_pricing(id_, result)
 
     def write_result(self, id, result, out_location):
+        print("writing result", result)
         table = pa.Table.from_pandas(result)
         pq.write_to_dataset(table, root_path=out_location)
         # print(pd.read_parquet(out_location))

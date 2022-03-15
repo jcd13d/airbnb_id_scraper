@@ -107,8 +107,8 @@
         ],
         "api_url": "https://www.airbnb.com/api/v3/StaysPdpSections",
         "proxies": {
-            "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112",
-            "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112"
+            "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@3.223.24.247:31112",
+            "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@3.223.24.247:31112"
         }
       },
       "out_location": "data/output/price_miami"
