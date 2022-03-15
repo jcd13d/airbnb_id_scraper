@@ -1,0 +1,117 @@
+{
+  "configs": [
+    {
+      "request_config": {
+        "variables": {
+          "id": "U3RheUxpc3Rpbmc6NTI5MDAyMDM=",
+          "pdpSectionsRequest": {
+            "adults": "1",
+            "bypassTargetings": false,
+            "categoryTag": null,
+            "causeId": null,
+            "children": null,
+            "disasterId": null,
+            "discountedGuestFeeVersion": null,
+            "displayExtensions": null,
+            "federatedSearchId": "9466eeb6-d017-4d53-8a89-de02a89e6985",
+            "forceBoostPriorityMessageType": null,
+            "infants": null,
+            "interactionType": null,
+            "layouts": [
+              "SIDEBAR",
+              "SINGLE_COLUMN"
+            ],
+            "pets": 0,
+            "pdpTypeOverride": null,
+            "preview": false,
+            "previousStateCheckIn": null,
+            "previousStateCheckOut": null,
+            "priceDropSource": null,
+            "privateBooking": false,
+            "promotionUuid": null,
+            "relaxedAmenityIds": null,
+            "searchId": null,
+            "selectedCancellationPolicyId": null,
+            "selectedRatePlanId": null,
+            "staysBookingMigrationEnabled": false,
+            "translateUgc": null,
+            "useNewSectionWrapperApi": false,
+            "forSplitStays": false,
+            "sectionIds": [
+              "BOOK_IT_FLOATING_FOOTER",
+              "EDUCATION_FOOTER_BANNER_MODAL",
+              "CANCELLATION_POLICY_PICKER_MODAL",
+              "BOOK_IT_CALENDAR_SHEET",
+              "POLICIES_DEFAULT",
+              "BOOK_IT_SIDEBAR",
+              "URGENCY_COMMITMENT_SIDEBAR",
+              "BOOK_IT_NAV",
+              "EDUCATION_FOOTER_BANNER",
+              "URGENCY_COMMITMENT"
+            ],
+            "checkIn": "2022-05-16",
+            "checkOut": "2022-05-17",
+            "p3ImpressionId": "p3_1645897581_69MVj6C9CFJXS3cW"
+          }
+        },
+        "headers": {
+          "authority": "www.airbnb.com",
+          "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"98\", \"Google Chrome\";v=\"98\"",
+          "x-airbnb-api-key": "d306zoyjsyarp7ifhu67rjxn52tv0t20",
+          "x-niobe-short-circuited": "true",
+          "dpr": "2",
+          "sec-ch-ua-platform": "\"macOS\"",
+          "device-memory": "8",
+          "x-airbnb-graphql-platform-client": "minimalist-niobe",
+          "sec-ch-ua-mobile": "?0",
+          "x-csrf-without-token": "1",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36",
+          "viewport-width": "385",
+          "content-type": "application/json",
+          "x-airbnb-supports-airlock-v2": "true",
+          "ect": "4g",
+          "x-airbnb-graphql-platform": "web",
+          "accept": "*/*",
+          "sec-fetch-site": "same-origin",
+          "sec-fetch-mode": "cors",
+          "sec-fetch-dest": "empty",
+          "referer": "https://www.airbnb.com/rooms/52952404?federated_search_id=9466eeb6-d017-4d53-8a89-de02a89e6985&source_impression_id=p3_1645828723_h%2Bx%2FnCal3zQUKPq7&check_in=2022-05-17&guests=1&adults=1&check_out=2022-05-19",
+          "accept-language": "en-US,en;q=0.9",
+          "cookie": "bev=1645828675_ZTc1YWVjMWQ4MzI5; country=US; cdn_exp_44f412bd466ffe35b=treatment; cdn_exp_90bbb75bab0d2037e=control; cdn_exp_dcefc80b9923f2e83=treatment; cdn_exp_f7233d62d5cb13f74=treatment; _csrf_token=V4%24.airbnb.com%24KMCfNFlKCbg%24LcAJp7gVOBmfjuNMZMSHtWZCRcQdML6XYZjPd7A0PN8%3D; flags=0; OptanonAlertBoxClosed=NR; tzo=-300; _gid=GA1.2.427645626.1645828676; _gcl_au=1.1.636745930.1645828676; _uetsid=93c35720968b11ec8e41853bafdd178f; _uetvid=93c35a50968b11ecb2c259648f5ad98d; _ga=GA1.1.28538937.1645828676; previousTab=%7B%22id%22%3A%22e04b109b-707e-4d62-8ee5-4b6bf3a4d30e%22%2C%22url%22%3A%22https%3A%2F%2Fwww.airbnb.com%2Frooms%2F52952404%3Ffederated_search_id%3D9466eeb6-d017-4d53-8a89-de02a89e6985%26source_impression_id%3Dp3_1645828723_h%252Bx%252FnCal3zQUKPq7%26check_in%3D2022-04-26%26guests%3D1%26adults%3D1%26check_out%3D2022-04-28%22%7D; cfrmfctr=MOBILE; jitney_client_session_id=5b0f5da7-3174-4250-ac40-432f5a915ad3; jitney_client_session_created_at=1645897514; ak_bmsc=5A01A9C9A18E3AB40D2AC6750CD126BA~000000000000000000000000000000~YAAQ1tB4aJK4XSp/AQAAC/8iNw5dphamLsSMtgCq+qZ7Ox2XZWMv7fZNTPyoKONCYOs33OKhVRuPUVRFmbWp//pFfdx7C0+bbTrcP1IbN4QR6RyIqKJsDLerDshj2mGltMVf7TFUeh4kk9sCNRIJDf2hqewNzFq/9b0bQUrFXZNK/bGP0ZVxtCkD1+vjBZXhE86hOW5Fu3XzwMtAwwtrTOoRy1qnlDM6qiBkXAjN5W9sTchY2Agi4+ObGG9b7nmYzerTp1HMiF/R9fLH/3WWg6C5hr+upmzZU7OZrUnVJZaafQCSXbjIGcrwsnOo+rQYnydD7MlVCswrb96uyg2VQkHv3xQC4rzZzjl76s4zx55yRphGkW86N1iKR80EFKLf/rH9tn4oA+RMag==; bm_sz=9AE7354AF3E2FD2B4867D1B82195B0E9~YAAQ1tB4aJO4XSp/AQAAC/8iNw6K0GlXyVVK+OFImq9R3j6nj1BPQPZ2z+igWx6GARrOS6FV+WDLqqrM6ng5yNkoy4LxbOIRuOGPJ18XJ8JuRUqz2M3fy9oAqmXU1vIKxR5MbWfIBxHAAiIS94lyln55swl/bqOdFR4mVVVtBUtSYswhwSZf27/kgPhrYwTnXFt/a1MHMsfGPsipJd+ceDwXA/zT2ftJZBpetAMxand53vUnOC8nNYE0xx0tMttloSkhDGJlmGNxueA9PlJNM8z9RuJhB7hfNslHGagt45FJ3Zg=~3228229~3356467; _user_attributes=%7B%22guest_exchange%22%3A1%2C%22device_profiling_session_id%22%3A%221645828675--dad67b3d1d514e70d4e4d39a%22%2C%22giftcard_profiling_session_id%22%3A%221645897542--fb3eec08086b2428bd220fd5%22%2C%22reservation_profiling_session_id%22%3A%221645897542--8291051133765a62c6ac0bf1%22%2C%22curr%22%3A%22USD%22%7D; _ga_2P6Q8PGG16=GS1.1.1645897515.4.1.1645897568.7; cbkp=1; frmfctr=compact; jitney_client_session_updated_at=1645897581; bm_sv=34B7D8BFFD82D84836C6BF19E65DCBFD~/4La43vxycIKKOsxCpglUUmNCqNEJ1dK2nSDOPAiMXA783POq3cJhn06NKPvwuYOlYS69ichDd/qDgOEqxVZv9pTvJuufzpgjLNrN+/9FdHkCxWhYxjWGFZENKHaHL99WSYfzCMdGmsPtlcfpNhx3pZMF9AEdaCkGFJgmjL7gNg=; _abck=D1D79E50FC84F6B90D9C1F3977CB21F3~-1~YAAQ1tB4aJfAXSp/AQAA6gUkNweMMWgG9ApIrI6TKKdh5eoS4lpGZfN4A0Ri7sGqcCVtdsPGM8tNZi8IfTod+77jUuUuvQ7hguRM0v2vh4VqFfV4btLOjIkqsN7vk68pUmXUpQch8PQYO6xGyA14RmqmdTTmq1XgQc99tyqOvdATmmBFmZfWJxJ0Pfs32/eKpSvbb53+aVEzufha7QaOldqpQ//2yRvagLrsPnqyDPefbsTLrJ05YFnhIADkTRqQJrlRGFUXn/pcmV6g6ZvxVvgXCJ22LW9L9FziJHY0WVBIm8fl6O0HOJNqheuhJfMoj0EuXyzOpmAaxToRgTSrI63RAhmEZJAH/uh7SuzB2S03vs4J2ROQTkXRSogOq27CPayXwgbNcU8TiQq+G5PmP/Sz/CZWSuE9~0~-1~-1"
+        },
+        "params": [
+          [
+            "operationName",
+            "StaysPdpSections"
+          ],
+          [
+            "locale",
+            "en"
+          ],
+          [
+            "currency",
+            "USD"
+          ],
+          [
+            "_cb",
+            "1xtckdz0hghsqo1af76fn0tk2ylp"
+          ],
+          [
+            "variables",
+            "INSERT VARIABLES HERE"
+          ],
+          [
+            "extensions",
+            "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"c69f3244e22206ff0c15b7e42d0c379de2408e4312820f8056c508e5b952ed15\"}}"
+          ]
+        ],
+        "api_url": "https://www.airbnb.com/api/v3/StaysPdpSections",
+        "proxies": {
+            "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@3.223.24.247:31112",
+            "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@3.223.24.247:31112"
+        }
+      },
+      "out_location": "data/output/price_miami"
+    }
+  ]
+}
