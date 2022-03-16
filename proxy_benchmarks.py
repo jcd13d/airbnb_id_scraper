@@ -18,13 +18,13 @@ if __name__ == "__main__":
     for i in range(runs):
         response = None
         try:
-            response = requests.get(url, proxies=proxies, timeout=3).text
+            response = requests.get(url, proxies=proxies).text
         except requests.exceptions.ProxyError as e:
             print("Proxy Error")
-            ssl_errors += 1
+            proxy_errors += 1
         except requests.exceptions.SSLError as e:
             print("SSL Error")
-            proxy_errors += 1
+            ssl_errors += 1
 
         print(response)
         if response in ip_dict.keys():

@@ -8,8 +8,10 @@
     the load on aws job
 ## Proxies
 * run benchmarks for how many proxies dont work etc, how long to wait
+  * ~41% of proxies failed in benchmark
 * see if benchmark matches what we see in practice, if not we may need 
   vary the headers etc
+  * Actually see less failure in practice... interesting
 * Quick run with  my IP and no timeouts, try on AWS so we dont care if IP blocked
 * Add variables that track types of failures in scraper class, output
   stats at the end of run 
