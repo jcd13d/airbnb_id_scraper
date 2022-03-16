@@ -1,0 +1,47 @@
+{
+  "configs": [
+    {
+      "request_config": {
+        "variables": {
+          "request": {
+          }
+        },
+        "headers": {
+          "x-airbnb-api-key": "d306zoyjsyarp7ifhu67rjxn52tv0t20"
+        },
+        "params": [
+          [
+            "operationName",
+            "PdpReviews"
+          ],
+          [
+            "locale",
+            "en"
+          ],
+          [
+            "currency",
+            "USD"
+          ],
+          [
+            "_cb",
+            "11rg9bi0f3abyp0izrfs61i65l97"
+          ],
+          [
+            "variables",
+            "PLACEHOLDER FOR VARIABLES"
+          ],
+          [
+            "extensions",
+            "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"ecf7222b1ad7e13da1bf39cf3cf05daa6bbc88709f06ea9cf669deca7e2e2de2\"}}"
+          ]
+        ],
+        "api_url": "https://www.airbnb.com/api/v3/PdpReviews",
+        "proxies": {
+          "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112",
+          "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112"
+        }
+      },
+      "out_location": "data/output/test_rev"
+    }
+  ]
+}
