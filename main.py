@@ -7,11 +7,11 @@ import datetime
 import os
 
 
-def get_scrapers(id_):
+def get_scrapers(index):
     scrapers = [
-        # OccupancyScraper(id_),
-        ReviewScraper(id_),
-        # PricingScraper(id_),
+        # OccupancyScraper(index),
+        # ReviewScraper(index),
+        PricingScraper(index),
     ]
     return scrapers
 
