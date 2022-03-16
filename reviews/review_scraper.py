@@ -5,7 +5,6 @@ import json
 import copy
 import os
 
-
 class ReviewScraper(IdScraper):
     def __init__(self, scraper_index):
         super().__init__(scraper_index)

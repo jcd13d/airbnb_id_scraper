@@ -1,0 +1,46 @@
+{
+    "configs": [
+      {
+        "request_config": {
+          "variables": {
+            "request": {
+              "count": 12,
+              "month": 3,
+              "year": 2022
+            }
+          },
+          "headers": {
+            "x-airbnb-api-key": "d306zoyjsyarp7ifhu67rjxn52tv0t20"
+        },
+          "params": [
+            [
+              "operationName",
+              "PdpReviews"
+            ],
+            [
+              "locale",
+              "en"
+            ],
+            [
+              "currency",
+              "USD"
+            ],
+            [
+              "_cb",
+              "11rg9bi0f3abyp0izrfs61i65l97"
+            ],
+            [
+              "variables",
+              "PLACEHOLDER FOR VARIABLES"
+            ],
+            [
+              "extensions",
+              "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"ecf7222b1ad7e13da1bf39cf3cf05daa6bbc88709f06ea9cf669deca7e2e2de2\"}}"
+            ]
+          ],
+          "api_url": "https://www.airbnb.com/api/v3/PdpReviews"
+        },
+        "out_location": "data/output/parquets"
+      }
+    ]
+  }
