@@ -40,6 +40,9 @@ class IdScraper:
         self.requests_count += 1
         return requests.get(api_url, headers=headers, params=params, proxies=proxies, timeout=timeout)
 
+    def read_config_s3(self, s3_link):
+
+
     def get_ids(self, **kwargs):
         """
         Get IDs from a configuration
