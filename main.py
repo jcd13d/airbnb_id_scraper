@@ -16,8 +16,13 @@ def get_scrapers(index):
 
 if __name__ == "__main__":
     start = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    print(f"Start: {start}")
-    scrapers = get_scrapers(int(os.environ['AWS_BATCH_JOB_ARRAY_INDEX']))
+    try:
+        index = int(os.environ['AWS_BATCH_JOB_ARRAY_INDEX'])
+    except KeyError as e:
+        print("Not running on batch! default to index 0.")
+        index = 0
+
+    scrapers = get_scrapers(index)
     [scraper.run() for scraper in scrapers]
     time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     print(f"Start: {start}")

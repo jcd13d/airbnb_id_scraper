@@ -23,3 +23,7 @@ aws s3 cp config s3://jd-s3-test-bucket9/test_configs/ --recursive
 aws s3api list-objects --bucket jd-s3-test-bucket9
 
 
+
+# USED LOCALLY DOCKER
+docker buildx build --platform=linux/amd64 -t scraper-1 .
+
