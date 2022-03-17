@@ -1,8 +1,8 @@
 {
     "containerDefinitions": [
         {
-            "name": "test-def-cli",
-            "image": "033046933810.dkr.ecr.us-east-1.amazonaws.com/testrepo:latest",
+            "name": "scraper-1-task-def",
+            "image": "033046933810.dkr.ecr.us-east-1.amazonaws.com/scraper-1",
             "cpu": 0,
             "portMappings": [],
             "essential": true,
@@ -11,13 +11,14 @@
                 "options": {
                     "awslogs-group": "test-group-cli",
                     "awslogs-region": "us-east-1",
-                    "awslogs-stream-prefix": "test-job-def-pub-ip"
+                    "awslogs-stream-prefix": "scraper-1"
                 }
             }
         }
     ],
-    "family": "test-job-def-pub-ip",
+    "family": "scraper-1",
     "executionRoleArn": "arn:aws:iam::033046933810:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::033046933810:role/AmazonECSTaskS3BucketRoleTestBucket",
     "networkMode": "awsvpc",
     "requiresCompatibilities": [
         "FARGATE"

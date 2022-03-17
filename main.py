@@ -8,8 +8,8 @@ import os
 def get_scrapers(index):
     scrapers = [
         OccupancyScraper(index),
-        # ReviewScraper(index),
-        # PricingScraper(index),
+        ReviewScraper(index),
+        PricingScraper(index),
     ]
     return scrapers
 
@@ -27,6 +27,8 @@ if __name__ == "__main__":
     time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     print(f"Start: {start}")
     print(f"End: {time}")
+
+    [scraper.print_error_stats() for scraper in scrapers]
 
 
     # PRICING RUNS
