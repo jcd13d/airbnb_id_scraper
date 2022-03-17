@@ -4,6 +4,7 @@ import pyarrow as pa
 import requests.exceptions
 import urllib3
 import traceback
+import s3fs
 
 from scraper_base.scraper import IdScraper
 from config.constants import PRICING_CONFIG_LOCATION, ID_CONFIG_LOCATION, NUM_REQUEST_TRIES
@@ -20,13 +21,17 @@ class PricingScraper(IdScraper):
         super().__init__(scraper_index)
 
     def get_config(self):
-        with open(PRICING_CONFIG_LOCATION, "r") as f:
+        s3 = s3fs.S3FileSystem()
+        with s3.open(PRICING_CONFIG_LOCATION, "r") as f:
             config = json.load(f)
+        # config = self.read_json_s3(S3_BUCKET_NAME, PRICING_CONFIG_LOCATION)
         return config
 
     def get_ids(self):
-        with open(ID_CONFIG_LOCATION, "r") as f:
+        s3 = s3fs.S3FileSystem()
+        with s3.open(ID_CONFIG_LOCATION, "r") as f:
             id_config = json.load(f)
+        # id_config = self.read_json_s3(S3_BUCKET_NAME, ID_CONFIG_LOCATION)
         return id_config['id_configs'][self.index]
 
     def get_pricing_id(self, id):
@@ -37,9 +42,16 @@ class PricingScraper(IdScraper):
                 print(f"try {i + 1} getting pricing ID")
             try:
                 new_id = get_pricing_id(id)
+            except requests.exceptions.ReadTimeout as e:
+                print(f"Read timeout in pricing ID... issue w short timeout wait: {e}")
+                continue
             except KeyError as e:
                 self.key_error += 1
                 print(f"Key error in pricing id: {e}")
+                continue
+            except AttributeError as e:
+                self.attribute_error += 1
+                print(f"Attribute Error in pricing id, has been None return: {e}")
                 continue
             except urllib3.util.retry.MaxRetryError as e:
                 self.max_retry += 1
@@ -83,10 +95,12 @@ class PricingScraper(IdScraper):
     def parse_result(self, id_, result):
         return parse_pricing(id_, result)
 
-    def write_result(self, id, result, out_location):
-        print("writing result", result)
-        table = pa.Table.from_pandas(result)
-        pq.write_to_dataset(table, root_path=out_location)
-        # print(pd.read_parquet(out_location))
+    # def write_result(self, id, result, out_location):
+    #     # print("writing result", result)
+    #     table = pa.Table.from_pandas(result)
+    #     pq.write_to_dataset(table, root_path=out_location)
+    #     # print(pd.read_parquet(out_location))
 
+    def write_result(self, id, result, out_config):
+        self.dataframe_to_s3(result, **out_config)
 

@@ -1,7 +1,10 @@
+from io import BytesIO, StringIO
 import requests
 import traceback
 import json
 import urllib3.util.retry
+import s3fs
+from fastparquet import write
 
 from config.constants import NUM_REQUEST_TRIES
 
@@ -21,6 +24,7 @@ class IdScraper:
         self.id_count = len(self.ids)
         self.connection = 0
         self.airbnb_error = 0
+        self.attribute_error = 0
 
     def print_error_stats(self):
         print(f"""
@@ -32,6 +36,7 @@ class IdScraper:
         Key Error: {self.key_error}
         Connection Error: {self.connection}
         Airbnb Error: {self.airbnb_error}
+        AttributeError Error: {self.attribute_error}
         Num Requests: {self.requests_count}
         Num IDs Run: {self.id_count}
         """)
@@ -40,7 +45,24 @@ class IdScraper:
         self.requests_count += 1
         return requests.get(api_url, headers=headers, params=params, proxies=proxies, timeout=timeout)
 
-    def read_config_s3(self, s3_link):
+    # def read_json_s3(self, s3_bucket, file_path):
+    #     s3_obj = boto3.client('s3')
+    #     s3_clientobj = s3_obj.get_object(Bucket=s3_bucket, Key=file_path)
+    #     s3_clientdata = s3_clientobj['Body'].read().decode('utf-8')
+    #     s3clientlist = json.loads(s3_clientdata)
+    #     return s3clientlist
+
+    def dataframe_to_s3(self, input_datafame, s3_path, partitionBy: list):
+
+        s3 = s3fs.S3FileSystem()
+        myopen = s3.open
+
+        if s3.exists(s3_path):
+            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=True, open_with=myopen)
+        else:
+            print("new df")
+            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=myopen)
+
 
 
     def get_ids(self, **kwargs):
@@ -68,7 +90,7 @@ class IdScraper:
         """
         raise NotImplementedError("Not Implemented")
 
-    def write_result(self, id_, result, out_location):
+    def write_result(self, id_, result, out_config):
         """
         Write result to disk
         :param id_:
@@ -215,7 +237,7 @@ class IdScraper:
                 edited_config = self.insert_id_into_config(id_, cfg)
                 parsed = self._request_and_parse(edited_config["request_config"], id_)
                 if parsed is not None:
-                    self.write_result(id_, parsed, cfg['out_location'])
+                    self.write_result(id_, parsed, cfg['out_config'])
                 else:
                     print("Received None from request and parse")
                     traceback.print_exc()

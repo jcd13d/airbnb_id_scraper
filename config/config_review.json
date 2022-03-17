@@ -41,7 +41,12 @@
           "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112"
         }
       },
-      "out_location": "data/output/test_rev"
+      "out_config": {
+        "s3_path": "jd-s3-test-bucket9/data/reviews",
+        "partitionBy": [
+          "id"
+        ]
+      }
     }
   ]
 }

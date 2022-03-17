@@ -1,8 +1,10 @@
 import pandas as pd
 import pyarrow.parquet as pq
 import pyarrow as pa
+import s3fs
+
 from scraper_base.scraper import IdScraper
-from config.constants import OCC_CONFIG_LOCATION, ID_CONFIG_LOCATION, NUM_REQUEST_TRIES
+from config.constants import OCC_CONFIG_LOCATION, ID_CONFIG_LOCATION
 from occupancy.parser import parse_occupancy
 import json
 import copy
@@ -15,13 +17,17 @@ class OccupancyScraper(IdScraper):
         super().__init__(scraper_index)
 
     def get_config(self):
-        with open(OCC_CONFIG_LOCATION, "r") as f:
+        s3 = s3fs.S3FileSystem()
+        with s3.open(OCC_CONFIG_LOCATION, "r") as f:
             config = json.load(f)
+        # config = self.read_json_s3(S3_BUCKET_NAME, OCC_CONFIG_LOCATION)
         return config
 
     def get_ids(self):
-        with open(ID_CONFIG_LOCATION, "r") as f:
+        s3 = s3fs.S3FileSystem()
+        with s3.open(ID_CONFIG_LOCATION, "r") as f:
             id_config = json.load(f)
+        # id_config = self.read_json_s3(S3_BUCKET_NAME, ID_CONFIG_LOCATION)
         return id_config['id_configs'][self.index]
 
     def insert_id_into_config(self, id, config):
@@ -50,10 +56,11 @@ class OccupancyScraper(IdScraper):
 
         return parsed
 
-    def write_result(self, id, result, out_location):
-        # result.to_parquet(os.path.join(out_location, f"{id}.parquet"))
-        table = pa.Table.from_pandas(result)
-        pq.write_to_dataset(table, root_path=out_location)
-        # print(pd.read_parquet(out_location))
+    # def write_result(self, id, result, out_location):
+    #     # result.to_parquet(os.path.join(out_location, f"{id}.parquet"))
+    #     table = pa.Table.from_pandas(result)
+    #     pq.write_to_dataset(table, root_path=out_location)
+    #     # print(pd.read_parquet(out_location))
 
-
+    def write_result(self, id, result, out_config):
+        self.dataframe_to_s3(result, **out_config)
