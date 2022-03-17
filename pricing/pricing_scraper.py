@@ -1,11 +1,7 @@
-import pandas as pd
-import pyarrow.parquet as pq
-import pyarrow as pa
 import requests.exceptions
 import urllib3
 import traceback
 import s3fs
-
 from scraper_base.scraper import IdScraper
 from config.constants import PRICING_CONFIG_LOCATION, ID_CONFIG_LOCATION, NUM_REQUEST_TRIES
 from pricing.parser import parse_pricing
@@ -13,7 +9,6 @@ from pricing.pricing_id import get_pricing_id
 import datetime
 import json
 import copy
-import os
 
 
 class PricingScraper(IdScraper):

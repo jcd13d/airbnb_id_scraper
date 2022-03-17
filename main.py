@@ -1,17 +1,15 @@
-import pandas as pd
-
-from occupancy.occupancy_scraper import OccupancyScraper
-from reviews.review_scraper import ReviewScraper
 from pricing.pricing_scraper import PricingScraper
+from reviews.review_scraper import ReviewScraper
+from occupancy.occupancy_scraper import OccupancyScraper
 import datetime
 import os
 
 
 def get_scrapers(index):
     scrapers = [
-        # OccupancyScraper(index),
+        OccupancyScraper(index),
         # ReviewScraper(index),
-        PricingScraper(index),
+        # PricingScraper(index),
     ]
     return scrapers
 

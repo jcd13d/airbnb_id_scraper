@@ -1,15 +1,9 @@
-import pandas as pd
-import pyarrow.parquet as pq
-import pyarrow as pa
 import s3fs
-
 from scraper_base.scraper import IdScraper
 from config.constants import OCC_CONFIG_LOCATION, ID_CONFIG_LOCATION
 from occupancy.parser import parse_occupancy
 import json
 import copy
-import os
-import traceback
 
 
 class OccupancyScraper(IdScraper):

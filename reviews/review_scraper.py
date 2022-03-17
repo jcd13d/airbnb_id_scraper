@@ -1,12 +1,10 @@
-import pyarrow.parquet as pq
-import pyarrow as pa
 from scraper_base.scraper import IdScraper
 from config.constants import ID_CONFIG_LOCATION, REVIEW_CONFIG_LOCATION
 from reviews.parser import parse_reviews
 import json
 import copy
 import s3fs
-import os
+
 
 class ReviewScraper(IdScraper):
     def __init__(self, scraper_index):
