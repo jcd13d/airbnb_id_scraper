@@ -1,10 +1,11 @@
+import os.path
+import datetime
 import requests
 import traceback
 import json
 import urllib3.util.retry
 import s3fs
 from fastparquet import write
-
 from config.constants import NUM_REQUEST_TRIES
 
 
@@ -15,6 +16,7 @@ class IdScraper:
         self.s3_myopen = self.s3.open
         self.config = self.get_config()
         self.ids = self.get_ids()
+        self.run_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         self.ssl = 0
         self.type_error = 0
         self.timeout = 0
@@ -57,12 +59,14 @@ class IdScraper:
     def dataframe_to_s3(self, input_datafame, s3_path, partitionBy: list):
         print("writing df")
 
-        if self.s3.exists(s3_path):
-            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
+        path = os.path.join(s3_path, f"array_{self.index}", self.run_time)
+
+        if self.s3.exists(path):
+            write(path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
             # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
         else:
             print("new df")
-            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
+            write(path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
             # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
 
     def get_ids(self, **kwargs):

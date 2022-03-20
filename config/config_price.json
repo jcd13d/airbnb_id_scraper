@@ -108,7 +108,7 @@
         "api_url": "https://www.airbnb.com/api/v3/StaysPdpSections"
       },
       "out_config": {
-        "s3_path": "jd-s3-test-bucket9/data/price",
+        "s3_path": "jd-s3-test-bucket9/data/price_3/by_pull",
         "partitionBy": [
           "id"
         ]
