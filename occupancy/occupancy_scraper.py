@@ -54,5 +54,5 @@ class OccupancyScraper(IdScraper):
     #     pq.write_to_dataset(table, root_path=out_location)
     #     # print(pd.read_parquet(out_location))
 
-    def write_result(self, id, result, out_config):
-        self.dataframe_to_s3(result, **out_config)
+    def write_result(self, out_config):
+        self.dataframe_to_s3(**out_config)

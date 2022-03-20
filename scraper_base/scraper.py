@@ -1,5 +1,7 @@
 import os.path
 import datetime
+
+import pandas as pd
 import requests
 import traceback
 import json
@@ -17,6 +19,7 @@ class IdScraper:
         self.config = self.get_config()
         self.ids = self.get_ids()
         self.run_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        self.data = None
         self.ssl = 0
         self.type_error = 0
         self.timeout = 0
@@ -49,24 +52,23 @@ class IdScraper:
         self.requests_count += 1
         return requests.get(api_url, headers=headers, params=params, proxies=proxies, timeout=timeout)
 
-    # def read_json_s3(self, s3_bucket, file_path):
-    #     s3_obj = boto3.client('s3')
-    #     s3_clientobj = s3_obj.get_object(Bucket=s3_bucket, Key=file_path)
-    #     s3_clientdata = s3_clientobj['Body'].read().decode('utf-8')
-    #     s3clientlist = json.loads(s3_clientdata)
-    #     return s3clientlist
+    def append_to_data(self, df):
+        if self.data is None:
+            self.data = df
+        else:
+           self.data = pd.concat([self.data, df])
 
-    def dataframe_to_s3(self, input_datafame, s3_path, partitionBy: list):
+    def dataframe_to_s3(self, s3_path, partitionBy: list):
         print("writing df")
 
         path = os.path.join(s3_path, f"array_{self.index}", self.run_time)
 
         if self.s3.exists(path):
-            write(path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
+            write(path, self.data, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
             # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
         else:
             print("new df")
-            write(path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
+            write(path, self.data, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
             # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
 
     def get_ids(self, **kwargs):
@@ -94,7 +96,7 @@ class IdScraper:
         """
         raise NotImplementedError("Not Implemented")
 
-    def write_result(self, id_, result, out_config):
+    def write_result(self, out_config):
         """
         Write result to disk
         :param id_:
@@ -249,11 +251,15 @@ class IdScraper:
                 edited_config = self.insert_id_into_config(id_, cfg)
                 parsed = self._request_and_parse(edited_config["request_config"], id_)
                 if parsed is not None:
-                    self.write_result(id_, parsed, cfg['out_config'])
+                    self.append_to_data(parsed)
                 else:
                     print("Received None from request and parse")
                     traceback.print_exc()
+
+        self.write_result(cfg['out_config'])
         self.print_error_stats()
 
         self.tear_down()
+
+
 

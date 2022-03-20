@@ -3,7 +3,6 @@ from config.constants import ID_CONFIG_LOCATION, REVIEW_CONFIG_LOCATION
 from reviews.parser import parse_reviews
 import json
 import copy
-import s3fs
 
 
 class ReviewScraper(IdScraper):
@@ -33,11 +32,6 @@ class ReviewScraper(IdScraper):
     def parse_result(self, id_, result):
         return parse_reviews(id_, result)
 
-    def write_result(self, id, result, out_config):
-        print(result)
-        self.dataframe_to_s3(result, **out_config)
-
-        # table = pa.Table.from_pandas(result)
-        # pq.write_to_dataset(table, root_path=out_location)
-
+    def write_result(self, out_config):
+        self.dataframe_to_s3(**out_config)
 
