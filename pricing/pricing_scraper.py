@@ -16,15 +16,13 @@ class PricingScraper(IdScraper):
         super().__init__(scraper_index)
 
     def get_config(self):
-        s3 = s3fs.S3FileSystem()
-        with s3.open(PRICING_CONFIG_LOCATION, "r") as f:
+        with self.s3.open(PRICING_CONFIG_LOCATION, "r") as f:
             config = json.load(f)
         # config = self.read_json_s3(S3_BUCKET_NAME, PRICING_CONFIG_LOCATION)
         return config
 
     def get_ids(self):
-        s3 = s3fs.S3FileSystem()
-        with s3.open(ID_CONFIG_LOCATION, "r") as f:
+        with self.s3.open(ID_CONFIG_LOCATION, "r") as f:
             id_config = json.load(f)
         # id_config = self.read_json_s3(S3_BUCKET_NAME, ID_CONFIG_LOCATION)
         return id_config['id_configs'][self.index]

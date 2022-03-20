@@ -11,6 +11,8 @@ from config.constants import NUM_REQUEST_TRIES
 class IdScraper:
     def __init__(self, scraper_index):
         self.index = scraper_index
+        self.s3 = s3fs.S3FileSystem()
+        self.s3_myopen = self.s3.open
         self.config = self.get_config()
         self.ids = self.get_ids()
         self.ssl = 0
@@ -41,6 +43,7 @@ class IdScraper:
         """)
 
     def make_request(self, headers, params, api_url, proxies=None, timeout=3):
+        print("running req func")
         self.requests_count += 1
         return requests.get(api_url, headers=headers, params=params, proxies=proxies, timeout=timeout)
 
@@ -52,17 +55,15 @@ class IdScraper:
     #     return s3clientlist
 
     def dataframe_to_s3(self, input_datafame, s3_path, partitionBy: list):
+        print("writing df")
 
-        s3 = s3fs.S3FileSystem()
-        myopen = s3.open
-
-        if s3.exists(s3_path):
-            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=True, open_with=myopen)
+        if self.s3.exists(s3_path):
+            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
+            # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
         else:
             print("new df")
-            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=myopen)
-
-
+            write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
+            # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
 
     def get_ids(self, **kwargs):
         """
@@ -110,6 +111,7 @@ class IdScraper:
         raise NotImplementedError("Not Implemented")
 
     def _make_request(self, headers, params, api_url, proxies=None):
+        print("make request _")
         response = None
         for i in range(NUM_REQUEST_TRIES):
             if i > 0:
@@ -150,6 +152,7 @@ class IdScraper:
 
 
     def _parse_result(self, id, result):
+        print("parse")
         parsed = None
 
         for i in range(NUM_REQUEST_TRIES):
@@ -181,6 +184,7 @@ class IdScraper:
 
 
     def _request_and_parse(self, request_config, id_):
+        print("request and parse")
         # TODO extract this out and have larger try except for errors that
         # make us need to re request but found in parsing
         # result = self._make_request(**request_config)
@@ -229,6 +233,11 @@ class IdScraper:
 
         return parsed
 
+    def tear_down(self):
+        self.s3.end_transaction()
+        self.s3 = None
+        self.s3_myopen = None
+
     def run(self):
         for id_ in self.ids:
             print(f"Running ID: {id_}")
@@ -241,4 +250,6 @@ class IdScraper:
                     print("Received None from request and parse")
                     traceback.print_exc()
         self.print_error_stats()
+
+        self.tear_down()
 

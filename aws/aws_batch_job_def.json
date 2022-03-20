@@ -1,0 +1,55 @@
+{
+  "jobDefinitionName": "aws-batch-scraper-1",
+  "type": "container",
+  "parameters": {},
+  "retryStrategy": {
+    "attempts": 1,
+    "evaluateOnExit": []
+  },
+  "containerProperties": {
+    "image": "033046933810.dkr.ecr.us-east-1.amazonaws.com/scraper-1",
+    "command": [
+      "python",
+      "main.py"
+    ],
+    "executionRoleArn": "arn:aws:iam::033046933810:role/ecsTaskExecutionRole",
+    "jobRoleArn": "arn:aws:iam::033046933810:role/ecsTaskExecutionRole",
+    "volumes": [],
+    "environment": [],
+    "mountPoints": [],
+    "ulimits": [],
+    "resourceRequirements": [
+      {
+        "value": "0.25",
+        "type": "VCPU"
+      },
+      {
+        "value": "512",
+        "type": "MEMORY"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "test-group-cli",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "scraper-1"
+      }
+    },
+    "secrets": [],
+    "networkConfiguration": {
+      "assignPublicIp": "ENABLED"
+    },
+    "fargatePlatformConfiguration": {
+      "platformVersion": "1.4.0"
+    }
+  },
+  "timeout": {
+    "attemptDurationSeconds": 60
+  },
+  "tags": {},
+  "propagateTags": false,
+  "platformCapabilities": [
+    "FARGATE"
+  ]
+}

@@ -60,7 +60,11 @@
             "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"8f08e03c7bd16fcad3c92a3592c19a8b559a0d0855a84028d1163d4733ed9ade\"}}"
           ]
         ],
-        "api_url": "https://www.airbnb.com/api/v3/PdpAvailabilityCalendar"
+        "api_url": "https://www.airbnb.com/api/v3/PdpAvailabilityCalendar",
+        "proxies": {
+          "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112",
+          "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112"
+        }
       },
       "out_config": {
         "s3_path": "jd-s3-test-bucket9/data/occupancy",

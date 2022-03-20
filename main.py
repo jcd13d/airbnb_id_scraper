@@ -3,12 +3,13 @@ from reviews.review_scraper import ReviewScraper
 from occupancy.occupancy_scraper import OccupancyScraper
 import datetime
 import os
+import faulthandler; faulthandler.enable()
 
 
 def get_scrapers(index):
     scrapers = [
         OccupancyScraper(index),
-        ReviewScraper(index),
+        # ReviewScraper(index),
         PricingScraper(index),
     ]
     return scrapers
@@ -69,4 +70,13 @@ if __name__ == "__main__":
 
     # OCC RUNS
 
+#
+# Corrupted thrift data at  100002 :  6 13
+# Corrupted thrift data at  100002 :  6 13
+# Corrupted thrift data at  100002 :  6 13
+# Corrupted thrift data at  100002 :  6 13
+# Corrupted thrift data at  100002 :  6 13
+# Corrupted thrift data at  100002 :  6 13
+# Corrupted thrift data at  100002 :  6 13
+#zsh: segmentation fault  python main.py
 

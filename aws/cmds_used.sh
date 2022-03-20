@@ -43,4 +43,10 @@ docker tag scraper-1:latest 033046933810.dkr.ecr.us-east-1.amazonaws.com/scraper
 # push
 docker push 033046933810.dkr.ecr.us-east-1.amazonaws.com/scraper-1:latest
 
+aws batch create-compute-environment --cli-input-json file://aws/batch_compute_envi_config.json
+aws batch create-job-queue --cli-input-json file://aws/aws_batch_job_queue.json
+aws batch register-job-definition --cli-input-json file://aws/aws_batch_job_def.json
+aws batch submit-job --cli-input-json file://aws/submit_batch_job.json
 
+aws s3api delete-object --bucket jd-s3-test-bucket9 --key data/reviews/part.0.parquet
+aws s3 rm s3://jd-s3-test-bucket9/ --recursive --exclude "*" --include "data/reviews/*"

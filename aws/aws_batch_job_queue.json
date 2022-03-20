@@ -1,0 +1,11 @@
+{
+  "jobQueueName": "batch-queue-cli",
+  "state": "ENABLED",
+  "priority": 1,
+  "computeEnvironmentOrder": [
+    {
+      "order": 1,
+      "computeEnvironment": "cli-batch-envi"
+    }
+  ]
+}

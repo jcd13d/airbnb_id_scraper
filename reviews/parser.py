@@ -12,9 +12,9 @@ def parse_reviews(id, response):
     data_dict["rating"] = []
     data_dict["pulled"] = []    # Do we need this or only the one below???
     for review in rev_dict["data"]["merlin"]["pdpReviews"]["reviews"]:
-        data_dict["date_of_review"].append(review["createdAt"])
-        data_dict["review"].append(review["comments"])
-        data_dict["rating"].append(review["rating"])
+        data_dict["date_of_review"].append(str(review["createdAt"]))
+        data_dict["review"].append(str(review["comments"]).encode('utf-8','ignore').decode("utf-8"))
+        data_dict["rating"].append(int(review["rating"]))
 
     data_dict["id"] = id
     data_dict["pulled"] = time

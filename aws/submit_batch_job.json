@@ -1,0 +1,10 @@
+{
+    "jobName": "running-scraper-1",
+    "jobQueue": "batch-queue-cli",
+
+    "jobDefinition": "aws-batch-scraper-1",
+    "propagateTags": true,
+    "timeout": {
+        "attemptDurationSeconds": 60
+    }
+}

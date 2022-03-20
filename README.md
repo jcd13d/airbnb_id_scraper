@@ -53,6 +53,10 @@
     then join it to the master ID table in a postprocessing script
 * ### Review Scraper
   * decide on storage format/pull frequency
+  * How many reviews to pull each time? how to only get new ones? how 
+    how frequently should we pull? (probably not very)
+  * we end up getting a weird error where it seems like we get an inconsistant
+    schema or something... json error in loading columns when writing parquet idk
   * write the code!
 * ### Pricing ID Scraper
 * ### Other Scrapers??
