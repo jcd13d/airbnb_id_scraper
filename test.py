@@ -1,12 +1,34 @@
 import pandas as pd
-import fastparquet as fp
-import s3fs
+import json
+import numpy as np
+
+def id_list_to_config(ids):
+    ids = np.array(ids)
+
+    total_listings = len(ids)
+    listings_per_container = 300
+
+    num_containers = (np.ceil(total_listings/listings_per_container))
+
+    ids2 = np.pad(ids, (0, int(num_containers*listings_per_container) - total_listings))
+    ids2 = ids2.reshape(-1, listings_per_container)
+
+    ids2 = ids2.tolist()
+    ids2 = [list(filter((0.0).__ne__, x)) for x in ids2] # filter out pad zeros
+    return ids2
 
 if __name__ == "__main__":
 
-    s3 = s3fs.S3FileSystem()
-    fs = s3fs.core.S3FileSystem()
+    with open("config/miami_ids.json", "r") as f:
+        ids = json.load(f)
 
-    # pandas_dataframe = fp.ParquetFile('s3://jd-s3-test-bucket9/test_configs/config_review.json', open_with=s3.open).to_pandas()
-    # print(pandas_dataframe)
-    print(pd.read_parquet('s3://jd-s3-test-bucket9/data/reviews').to_csv("test.csv"))
+    ids = ids['id_configs'][0]
+
+    ids2 = id_list_to_config(ids)
+
+    new_config = {}
+    new_config['id_configs'] = ids2
+    with open("config/big_batch_ids.json", "w") as f:
+        json.dump(new_config, f, indent=4)
+
+

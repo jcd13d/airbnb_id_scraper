@@ -2,7 +2,7 @@
     "jobName": "running-scraper-1",
     "jobQueue": "batch-queue-cli",
     "arrayProperties": {
-        "size": 2
+        "size": 6
     },
     "jobDefinition": "aws-batch-scraper-1",
     "propagateTags": true,

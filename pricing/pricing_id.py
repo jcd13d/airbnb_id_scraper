@@ -3,10 +3,9 @@ import json
 from bs4 import BeautifulSoup
 
 
-def get_pricing_id(id):
+def request_pricing_id(id):
     # TODO eventually want to do this better, create db mapping and hit that
     # internally before doing an extra external ping
-    url = f"https://www.airbnb.com/rooms/{id}?federated_search_id=9466eeb6-d017-4d53-8a89-de02a89e6985&source_impression_id=p3_1645900145_ErN%2FLgsBQ8Zeikmz"
     url = f"https://www.airbnb.com/rooms/{int(id)}?federated_search_id=fea61919-9f66-4005-a6cd-4a979c5b045e&source_impression_id=p3_1647145020_gJKhEqRJmmrMnYcL"
     headers = {
         "authority": "www.airbnb.com",
@@ -39,13 +38,30 @@ def get_pricing_id(id):
     # }
     proxies = None
     print(url)
-    r = requests.get(url, proxies=proxies, headers=headers, timeout=4)#, params=params)
+    r = requests.get(url, proxies=proxies, headers=headers, timeout=4)  # , params=params)
     soup = BeautifulSoup(r.content, 'html.parser')
+    permission = soup.find("script", {"id": "data-deferred-state"})
+
+    # checking manually if 403 error useful if want to be pulling from mapping somewhere
+    # # print(json.dumps(json.loads(permission.text), indent=4))
+    # print(json.dumps(json.loads(permission.text)["niobeMinimalClientData"][0][1]['error']["message"], indent=4))
+    # print("403" in json.dumps(json.loads(permission.text)["niobeMinimalClientData"][0][1]['error']["message"], indent=4))
+
     tag = soup.find("script", {"id": "data-state"})
-    # print(r.text)
-    # print(json.dumps(json.loads(r.text), indent=4))
-    # print(tag)
     x = json.loads(tag.text)
     string = x['niobeMinimalClientData'][0][0]
     new_id = json.loads(string[string.find("{"):])['id']
     return new_id
+
+
+def get_pricing_id(id):
+    new_id = request_pricing_id(id)
+    return new_id
+
+
+if __name__ == "__main__":
+    # testing
+    get_pricing_id(1)
+    get_pricing_id(21026933.0)
+
+
