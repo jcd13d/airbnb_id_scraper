@@ -18,13 +18,11 @@ class PricingScraper(IdScraper):
     def get_config(self):
         with self.s3.open(PRICING_CONFIG_LOCATION, "r") as f:
             config = json.load(f)
-        # config = self.read_json_s3(S3_BUCKET_NAME, PRICING_CONFIG_LOCATION)
         return config
 
     def get_ids(self):
         with self.s3.open(ID_CONFIG_LOCATION, "r") as f:
             id_config = json.load(f)
-        # id_config = self.read_json_s3(S3_BUCKET_NAME, ID_CONFIG_LOCATION)
         return id_config['id_configs'][self.index]
 
     def get_pricing_id(self, id):
@@ -61,11 +59,6 @@ class PricingScraper(IdScraper):
                 traceback.print_exc()
                 print(f"Connection Error triggered during pricing ID request: {e}")
                 continue  # continues thru loop if fails
-            # except requests.exceptions.SSLError as e:
-            #     self.ssl += 1
-            #     traceback.print_exc()
-            #     print(f"SSL Error triggered (usually max retries) during pricing ID request: {e}")
-            #     continue  # continues thru loop if fails
             break
 
         if new_id is None:
@@ -87,12 +80,6 @@ class PricingScraper(IdScraper):
 
     def parse_result(self, id_, result):
         return parse_pricing(id_, result)
-
-    # def write_result(self, id, result, out_location):
-    #     # print("writing result", result)
-    #     table = pa.Table.from_pandas(result)
-    #     pq.write_to_dataset(table, root_path=out_location)
-    #     # print(pd.read_parquet(out_location))
 
     def write_result(self, out_config):
         self.dataframe_to_s3(**out_config)

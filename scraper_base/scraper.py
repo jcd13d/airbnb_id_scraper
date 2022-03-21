@@ -65,11 +65,9 @@ class IdScraper:
 
         if self.s3.exists(path):
             write(path, self.data, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
-            # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
         else:
             print("new df")
             write(path, self.data, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
-            # write(s3_path, input_datafame, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
 
     def get_ids(self, **kwargs):
         """
@@ -183,26 +181,13 @@ class IdScraper:
             #     raise(e)
             break   # breaking since we didnt have an error we know we should retry on
 
-        # if parsed is None:
-        #     raise()
-
         return parsed
 
 
     def _request_and_parse(self, request_config, id_):
         print("request and parse")
         # TODO extract this out and have larger try except for errors that
-        # make us need to re request but found in parsing
-        # result = self._make_request(**request_config)
-        # if result is None:
-        #     print("Unable to get result")
-        # else:
-        #     parsed = self._parse_result(id_, result)
-        #     if parsed is None:
-        #         print("Unable to parse")
-        #     else:
-        #         # parsed = self.request_and_parse(id_, edited_config['request_config'])
-        #         # self.write_result(id_, parsed, cfg['out_location'])
+
         parsed = None
         result = None
         for i in range(NUM_REQUEST_TRIES):
@@ -230,12 +215,6 @@ class IdScraper:
                     break  # break loop, this isn't solved with multiple retries
                 continue  # usually type errors are random weird responses and can be resolved by trying again
             break # break if different error
-
-        # if result is None:
-        #     raise()
-        #
-        # if parsed is None:
-        #     raise()
 
         return parsed
 

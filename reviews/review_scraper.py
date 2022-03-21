@@ -12,13 +12,11 @@ class ReviewScraper(IdScraper):
     def get_config(self):
         with self.s3.open(REVIEW_CONFIG_LOCATION, "r") as f:
             config = json.load(f)
-        # config = self.read_json_s3(S3_BUCKET_NAME, REVIEW_CONFIG_LOCATION)
         return config
 
     def get_ids(self):
         with self.s3.open(ID_CONFIG_LOCATION, "r") as f:
             id_config = json.load(f)
-        # id_config = self.read_json_s3(S3_BUCKET_NAME, ID_CONFIG_LOCATION)
         return id_config['id_configs'][self.index]
 
     def insert_id_into_config(self, id, config):
