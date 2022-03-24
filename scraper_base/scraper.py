@@ -58,7 +58,7 @@ class IdScraper:
         else:
            self.data = pd.concat([self.data, df])
 
-    def dataframe_to_s3(self, s3_path, partitionBy: list):
+    def dataframe_to_s3(self, s3_path, partitionBy: list=None):
         print("writing df")
 
         path = os.path.join(s3_path, f"array_{self.index}", self.run_time)
@@ -235,6 +235,7 @@ class IdScraper:
                     print("Received None from request and parse")
                     traceback.print_exc()
 
+        # TODO invert loop, need to write for each config run
         self.write_result(cfg['out_config'])
         self.print_error_stats()
 

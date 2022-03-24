@@ -63,10 +63,7 @@
         "api_url": "https://www.airbnb.com/api/v3/PdpAvailabilityCalendar"
       },
       "out_config": {
-        "s3_path": "jd-s3-test-bucket9/data/occupancy_3/by_pull",
-        "partitionBy": [
-          "id"
-        ]
+        "s3_path": "jd-s3-test-bucket9/data/occupancy_beta/"
       }
     }
   ]

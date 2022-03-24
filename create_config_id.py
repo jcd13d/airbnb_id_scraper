@@ -12,6 +12,7 @@ def id_list_to_config(ids):
 
     ids2 = np.pad(ids, (0, int(num_containers*listings_per_container) - total_listings))
     ids2 = ids2.reshape(-1, listings_per_container)
+    print(ids2.shape)
 
     ids2 = ids2.tolist()
     ids2 = [list(filter((0.0).__ne__, x)) for x in ids2] # filter out pad zeros
@@ -25,6 +26,7 @@ if __name__ == "__main__":
     ids = ids['id_configs'][0]
 
     ids2 = id_list_to_config(ids)
+    ids2 = ids2[:6]
 
     new_config = {}
     new_config['id_configs'] = ids2

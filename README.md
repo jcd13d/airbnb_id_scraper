@@ -6,6 +6,7 @@
 * decide on initial trial areas for scraping
   * break initial areas into reasonable chunks for distributing 
     the load on aws job
+* where do we want to pull? how frequently? set up AWS job?
 ## Proxies
 * run benchmarks for how many proxies dont work etc, how long to wait
   * ~41% of proxies failed in benchmark
@@ -15,8 +16,8 @@
 * Quick run with  my IP and no timeouts, try on AWS so we dont care if IP blocked
 * Add variables that track types of failures in scraper class, output
   stats at the end of run 
+* So far good results no blockage for airbnb scraper by id tested for 300 ids at a time
 ## Headers
-* see i
 
 ## ID Based Detail Scraper
 * Right now writing parquet in append mode... need to think about 
@@ -54,7 +55,7 @@
 * ### Review Scraper
   * decide on storage format/pull frequency
   * How many reviews to pull each time? how to only get new ones? how 
-    how frequently should we pull? (probably not very)
+    frequently should we pull? (probably not very)
   * we end up getting a weird error where it seems like we get an inconsistant
     schema or something... json error in loading columns when writing parquet idk
   * write the code!
@@ -63,12 +64,27 @@
   * Amenities?
 
 ## Post Processing / Other Scripts
+## Config Creator
+* Using the indexing data, create configs that are run for ID scrapers
+  * knob for number of IDs per container 
+  * handle how frequently and far into future to pull pricing data
+### Post Process Loading of ID Scraper data
+* When we scrape, we need to write to individual s3 buckets because there are
+  collisions if we try to write to the same file (maybe there is a solution to this
+  but I couldn't figure it out..). 
+* Read all the data in scraper "temp" directory and append to prod directory with 
+  appropriate partitions etc. 
+  * make sure to watch out for corruption of the dataset, we need to ensure types 
+    are consistant etc. 
+* Process occupancy data to only keep rows that show a switch in occupancy or the 
+  first row of occupancy pull
 ### ID Batch Job Configuration Creator
 * Write script to get unique IDs from Listing Index
 * Based on configurable batch job size - break those IDs into
   evenly distributed batches of listings to run on each node
 * Figure out how to load this into a db on s3 so we can query
   it for run configuration based on environment index
+  * think we should table this for now
 ### Join Detailed Pricing ID to Master ID table?
 * to avoid having to ping airbnb for it every time? Maybe we can
   just query a db with the mapping?
@@ -87,3 +103,12 @@
 # Notes
 * running very slow... huge limitation is proxies when we get a
   bad ip... Also just slower requests I think
+* need indexer script running in some frequency
+  * what areas do we want to pull
+  * how frequent
+* Need script to pull unique IDs and make config scripts for ID scrapers
+  * read id scraper data
+  * drop duplicates/take only last pull? (do we need to keep a time series here?)
+  * create configs based on some inputs (number nodes in job, how many prices at 
+    what time in future etc)
+* Pricing data frequency
