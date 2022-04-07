@@ -17,15 +17,17 @@
 * Add variables that track types of failures in scraper class, output
   stats at the end of run 
 * So far good results no blockage for airbnb scraper by id tested for 300 ids at a time
+
 ## Headers
 
 ## ID Based Detail Scraper
-* Right now writing parquet in append mode... need to think about 
-  paritioning... may need to post process repartition?
-* TODO 
-  * Think about other errors to catch 
-    * simulate malformed input response/other request errors`
-    * Index out of bounds error? Some tasks rely on indexing
+* Better logging
+* Figure out frequency of pricing pull and build into config easily
+* Is running with public IP the right way to do it? 
+  * needs to be able to reach ECR and make requests outbound
+* how do we know if it fails? What kind of checks can we run? 
+  how do we get notified if everything starts failing?
+
 * ### Occupancy Scraper
   * decide on storage format/pull frequency
     * Storage format - append all data from pull with date it
@@ -33,9 +35,7 @@
       availability switches from the most recent value
   * Lets say we see one week a listing goes from unbooked to 
     booked... how do we know what price it was booked at?
-  * write the code!
-    * About done i think...
-    * need to decide how to append data to bucket, postprocessing, etc
+    * Need to have price for that listing on that day...
   * need dynamic change of month when new month hits year etc
 * ### Detailed Price Scraper 
   * decide on storage format/pull frequency
@@ -48,7 +48,6 @@
     * setting up to ask for it every time
     * solution would be to create mapping and query databse for it
       each time
-  * write the code!
 * ### Detailed Price ID scraper
   * Need to pull the weird ID you use to get pricing...
   * This shouldnt change at least... so we can probably pull it
@@ -60,7 +59,6 @@
   * we end up getting a weird error where it seems like we get an inconsistant
     schema or something... json error in loading columns when writing parquet idk
   * write the code!
-* ### Pricing ID Scraper
 * ### Other Scrapers??
   * Amenities?
 
@@ -79,6 +77,8 @@
     are consistant etc. 
 * Process occupancy data to only keep rows that show a switch in occupancy or the 
   first row of occupancy pull
+* Figured this out with EMR, but maybe we should just use pandas and iterate
+  through files if this is feasible to start (EMR is expensive)
 ### ID Batch Job Configuration Creator
 * Write script to get unique IDs from Listing Index
 * Based on configurable batch job size - break those IDs into
@@ -133,3 +133,5 @@
 * clean up logging in ID scraper
 * Get index scraper to final state
 * How to run EMR on a schedule? Probably lambda
+* Figure out DB issues with Review scraper, get that running on a lower 
+  frequency
