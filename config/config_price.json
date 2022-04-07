@@ -108,7 +108,7 @@
         "api_url": "https://www.airbnb.com/api/v3/StaysPdpSections"
       },
       "out_config": {
-        "s3_path": "jd-s3-test-bucket9/data/price_beta/"
+        "s3_path": "jd-s3-test-bucket9/data/price_beta_2/"
       }
     }
   ]

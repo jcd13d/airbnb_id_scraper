@@ -36,6 +36,7 @@
   * write the code!
     * About done i think...
     * need to decide how to append data to bucket, postprocessing, etc
+  * need dynamic change of month when new month hits year etc
 * ### Detailed Price Scraper 
   * decide on storage format/pull frequency
   * do we want future prices? how many? 
@@ -112,3 +113,23 @@
   * create configs based on some inputs (number nodes in job, how many prices at 
     what time in future etc)
 * Pricing data frequency
+* NEED TO ADD MULTI CONFIG SUPPORT
+
+
+# Postprocess Notes
+## Occupancy
+* drop rows where change in occupancy 
+* how to do this without having to check every row in the whole dataset?
+  * can only look at prev year if we are pulling a year fwd?
+
+
+# TODO 0406
+* dynamic date config occupancy - month we are in fwd
+* easy config number of days into future to pull for listings
+  * if it is multi config, need to fix loop in scraper.py
+* how many dates in future to pull, skip days? pull all for a sample? 
+* figure out initial locations to pull/how many listings we should start with 
+  * get script that will at some freq create configs based on index table
+* clean up logging in ID scraper
+* Get index scraper to final state
+* How to run EMR on a schedule? Probably lambda

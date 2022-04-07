@@ -51,3 +51,5 @@ aws batch submit-job --cli-input-json file://aws/submit_batch_job_array.json
 
 aws s3api delete-object --bucket jd-s3-test-bucket9 --key data/reviews/part.0.parquet
 aws s3 rm s3://jd-s3-test-bucket9/ --recursive --exclude "*" --include "data/reviews/*"
+
+aws batch submit-job --cli-input-json file://config/batch_array_job_sub.json
