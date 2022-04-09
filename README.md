@@ -135,3 +135,23 @@
 * How to run EMR on a schedule? Probably lambda
 * Figure out DB issues with Review scraper, get that running on a lower 
   frequency
+
+# Indexer TODO
+* George
+* Trigger by EventBridge rule?
+
+# Config Generator
+* Could be a lambda function that then kicks off the ID scraper after
+  creating configs
+
+# ID Scraper TODO
+* date configuration for occupancy, price, ability to pull many days of pricing
+* improve logging
+* get a config creation job that the scraping job would be dependent on?
+  * can also just run it earlier before this runs
+* Trigger by EventBridge Rule? OR kick off from lambda that creates the configs
+
+# Postprocessing
+* DECIDE IF THESE SHOULD BE EMR OR PANDAS ON EC2/LAMBDA/FARGATE
+* Trigger by EventBridge rule, can be lower freq then ID scraper since it 
+  can get a bunch of runs at once 
