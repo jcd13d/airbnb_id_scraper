@@ -70,11 +70,12 @@ class PricingScraper(IdScraper):
         cfg = copy.deepcopy(config)
         # TODO do this id thing dynamically configure the path to id
         cfg['request_config']['variables']['id'] = self.get_pricing_id(id)
-        today = datetime.datetime.now().strftime("%Y-%d-%m")
-        tomorrow = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%d-%m")
-        cfg['request_config']['variables']['checkIn'] = today
-        cfg['request_config']['variables']['checkOut'] = tomorrow
+        # today = datetime.datetime.now().strftime("%Y-%d-%m")
+        # tomorrow = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%d-%m")
+        # cfg['request_config']['variables']['checkIn'] = today
+        # cfg['request_config']['variables']['checkOut'] = tomorrow
         cfg['request_config']['params'][4][1] = json.dumps(cfg['request_config']['variables'])
+        # print(cfg['request_config']['variables']['checkIn'])
         del cfg['request_config']['variables']
         return cfg
 

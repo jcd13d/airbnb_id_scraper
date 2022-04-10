@@ -143,6 +143,7 @@
 # Config Generator
 * Could be a lambda function that then kicks off the ID scraper after
   creating configs
+  * but id_config might be emr?
 
 # ID Scraper TODO
 * date configuration for occupancy, price, ability to pull many days of pricing

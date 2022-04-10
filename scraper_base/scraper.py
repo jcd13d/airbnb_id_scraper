@@ -58,7 +58,7 @@ class IdScraper:
         else:
            self.data = pd.concat([self.data, df])
 
-    def dataframe_to_s3(self, s3_path, partitionBy: list=None):
+    def dataframe_to_s3(self, s3_path, partitionBy: list=[]):
         print("writing df")
 
         path = os.path.join(s3_path, f"array_{self.index}", self.run_time)
@@ -224,9 +224,9 @@ class IdScraper:
         self.s3_myopen = None
 
     def run(self):
-        for id_ in self.ids:
-            print(f"Running ID: {id_}")
-            for cfg in self.config['configs']:
+        for cfg in self.config['configs']:
+            for id_ in self.ids:
+                print(f"Running ID: {id_}")
                 edited_config = self.insert_id_into_config(id_, cfg)
                 parsed = self._request_and_parse(edited_config["request_config"], id_)
                 if parsed is not None:
@@ -235,8 +235,7 @@ class IdScraper:
                     print("Received None from request and parse")
                     traceback.print_exc()
 
-        # TODO invert loop, need to write for each config run
-        self.write_result(cfg['out_config'])
+            self.write_result(cfg['out_config'])
         self.print_error_stats()
 
         self.tear_down()
