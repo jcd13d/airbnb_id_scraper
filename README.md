@@ -159,10 +159,8 @@
 
 
 Notes
-* think working to pull multi prices now...
-* Try a run, do postprocessing, pull into zeppelin to see if its working
-* then need to fix logging will be a mess... save metadata on each run stats
-  * maybe need postprocessing script for that too
-* NEED SECOND DIR FOR NEXT PRICE PULL? or dont write every config?
-* NEED DAY FROM CONFIG IN PRICING TABLE
 * NEED TO DELETE AFTER POSTPROCESS
+* ADD METADATA TABLE FOR SCRAPERS
+* MAKE CONFIG S3/AWS DRIVEN, RUN ON LAMBDA?
+
+Took about 30 min 25 IDs 90 days prices

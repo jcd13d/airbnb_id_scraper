@@ -2,11 +2,11 @@
     "jobName": "running-scraper-1",
     "jobQueue": "batch-queue-cli",
     "arrayProperties": {
-        "size": 240
+        "size": 480
     },
     "jobDefinition": "aws-batch-scraper-1",
     "propagateTags": true,
     "timeout": {
-        "attemptDurationSeconds": 1200
+        "attemptDurationSeconds": 2800
     }
 }
