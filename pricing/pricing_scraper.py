@@ -14,6 +14,9 @@ import copy
 class PricingScraper(IdScraper):
     def __init__(self, scraper_index):
         super().__init__(scraper_index)
+        self.curr_check_in = None
+        self.curr_check_out = None
+        self.id_map = {}
 
     def get_config(self):
         with self.s3.open(PRICING_CONFIG_LOCATION, "r") as f:
@@ -26,6 +29,12 @@ class PricingScraper(IdScraper):
         return id_config['id_configs'][self.index]
 
     def get_pricing_id(self, id):
+
+        try:
+            return self.id_map[id]
+        except KeyError as e:
+            pass
+
         new_id = None
         self.requests_count += 1
         for i in range(NUM_REQUEST_TRIES):
@@ -64,23 +73,22 @@ class PricingScraper(IdScraper):
         if new_id is None:
             raise()
 
+        self.id_map[id] = new_id
+
         return new_id
 
     def insert_id_into_config(self, id, config):
         cfg = copy.deepcopy(config)
         # TODO do this id thing dynamically configure the path to id
         cfg['request_config']['variables']['id'] = self.get_pricing_id(id)
-        # today = datetime.datetime.now().strftime("%Y-%d-%m")
-        # tomorrow = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%d-%m")
-        # cfg['request_config']['variables']['checkIn'] = today
-        # cfg['request_config']['variables']['checkOut'] = tomorrow
+        self.curr_check_in = config['request_config']['variables']['pdpSectionsRequest']['checkIn']
+        self.curr_check_out = config['request_config']['variables']['pdpSectionsRequest']['checkOut']
         cfg['request_config']['params'][4][1] = json.dumps(cfg['request_config']['variables'])
-        # print(cfg['request_config']['variables']['checkIn'])
         del cfg['request_config']['variables']
         return cfg
 
     def parse_result(self, id_, result):
-        return parse_pricing(id_, result)
+        return parse_pricing(id_, result, self.curr_check_in, self.curr_check_out)
 
     def write_result(self, out_config):
         self.dataframe_to_s3(**out_config)

@@ -31,6 +31,7 @@ class IdScraper:
         self.connection = 0
         self.airbnb_error = 0
         self.attribute_error = 0
+        self.pulls_per_id = len(self.config['configs'])
 
     def print_error_stats(self):
         print(f"""
@@ -45,6 +46,7 @@ class IdScraper:
         AttributeError Error: {self.attribute_error}
         Num Requests: {self.requests_count}
         Num IDs Run: {self.id_count}
+        Num Pulls Per ID: {self.pulls_per_id}
         """)
 
     def make_request(self, headers, params, api_url, proxies=None, timeout=3):
@@ -186,7 +188,8 @@ class IdScraper:
 
     def _request_and_parse(self, request_config, id_):
         print("request and parse")
-        # TODO extract this out and have larger try except for errors that
+        # start_date =
+        # end_date =
 
         parsed = None
         result = None
@@ -235,7 +238,7 @@ class IdScraper:
                     print("Received None from request and parse")
                     traceback.print_exc()
 
-            self.write_result(cfg['out_config'])
+        self.write_result(cfg['out_config'])
         self.print_error_stats()
 
         self.tear_down()

@@ -156,3 +156,13 @@
 * DECIDE IF THESE SHOULD BE EMR OR PANDAS ON EC2/LAMBDA/FARGATE
 * Trigger by EventBridge rule, can be lower freq then ID scraper since it 
   can get a bunch of runs at once 
+
+
+Notes
+* think working to pull multi prices now...
+* Try a run, do postprocessing, pull into zeppelin to see if its working
+* then need to fix logging will be a mess... save metadata on each run stats
+  * maybe need postprocessing script for that too
+* NEED SECOND DIR FOR NEXT PRICE PULL? or dont write every config?
+* NEED DAY FROM CONFIG IN PRICING TABLE
+* NEED TO DELETE AFTER POSTPROCESS

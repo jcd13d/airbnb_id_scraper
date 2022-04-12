@@ -8,7 +8,7 @@ import faulthandler; faulthandler.enable()
 
 def get_scrapers(index):
     scrapers = [
-        OccupancyScraper(index),
+        # OccupancyScraper(index),
         # ReviewScraper(index),
         PricingScraper(index),
     ]
