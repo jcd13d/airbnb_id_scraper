@@ -53,7 +53,7 @@ class IdScraper:
 
     def write_metadata(self, cfg):
         metadata = pd.DataFrame(self.get_metadata())
-        self.dataframe_to_s3(metadata, **cfg['metadata_config'])
+        self.dataframe_to_s3(metadata, **cfg)
 
 
     def print_error_stats(self):
@@ -119,7 +119,7 @@ class IdScraper:
         """
         raise NotImplementedError("Not Implemented")
 
-    def write_result(self, out_config):
+    def write_result(self, data, out_config):
         """
         Write result to disk
         :param id_:

@@ -31,5 +31,5 @@ class OccupancyScraper(IdScraper):
 
         return parsed
 
-    def write_result(self, out_config):
-        self.dataframe_to_s3(**out_config)
+    def write_result(self, data, out_config):
+        self.dataframe_to_s3(data, **out_config)

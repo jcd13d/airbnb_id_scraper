@@ -163,6 +163,7 @@ Notes
 * ADD METADATA TABLE FOR SCRAPERS
 * MAKE CONFIG S3/AWS DRIVEN, RUN ON LAMBDA?
 
+50 ids 20 days prices, about 60 cents for 12K listings
 Took about 30 min 25 IDs 90 days prices
 
 Once we get going...
