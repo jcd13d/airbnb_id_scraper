@@ -32,6 +32,29 @@ class IdScraper:
         self.airbnb_error = 0
         self.attribute_error = 0
         self.pulls_per_id = len(self.config['configs'])
+        self.metadata = {}
+
+    def get_metadata(self):
+        self.metadata["SSL Errors"] = [self.ssl]
+        self.metadata["Type Errors"] = [self.type_error]
+        self.metadata["Timeouts"] = [self.timeout]
+        self.metadata["Max Retry"] = [self.max_retry]
+        self.metadata["Proxy Error"] = [self.proxy]
+        self.metadata["Key Error"] = [self.key_error]
+        self.metadata["Connection Error"] = [self.connection]
+        self.metadata["Airbnb Error"] = [self.airbnb_error]
+        self.metadata["AttributeError Error"] = [self.attribute_error]
+        self.metadata["Num Requests"] = [self.requests_count]
+        self.metadata["Num IDs Run"] = [self.id_count]
+        self.metadata["Num Pulls Per ID"] = [self.pulls_per_id]
+        self.metadata["Array Index"] = [self.index]
+        self.metadata["Timestamp"] = [self.run_time]
+        return self.metadata
+
+    def write_metadata(self, cfg):
+        metadata = pd.DataFrame(self.get_metadata())
+        self.dataframe_to_s3(metadata, **cfg['metadata_config'])
+
 
     def print_error_stats(self):
         print(f"""
@@ -60,16 +83,16 @@ class IdScraper:
         else:
            self.data = pd.concat([self.data, df])
 
-    def dataframe_to_s3(self, s3_path, partitionBy: list=[]):
+    def dataframe_to_s3(self, data, s3_path, partitionBy: list=[]):
         print("writing df")
 
         path = os.path.join(s3_path, f"array_{self.index}", self.run_time)
 
         if self.s3.exists(path):
-            write(path, self.data, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
+            write(path, data, file_scheme='hive', partition_on=partitionBy, append=True, open_with=self.s3_myopen)
         else:
             print("new df")
-            write(path, self.data, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
+            write(path, data, file_scheme='hive', partition_on=partitionBy, append=False, open_with=self.s3_myopen)
 
     def get_ids(self, **kwargs):
         """
@@ -238,7 +261,8 @@ class IdScraper:
                     print("Received None from request and parse")
                     traceback.print_exc()
 
-        self.write_result(cfg['out_config'])
+        self.write_result(self.data, cfg['out_config'])
+        self.write_metadata(cfg['metadata_config']) if 'metadata_config' in cfg.keys() else None
         self.print_error_stats()
 
         self.tear_down()
