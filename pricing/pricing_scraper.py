@@ -90,5 +90,5 @@ class PricingScraper(IdScraper):
     def parse_result(self, id_, result):
         return parse_pricing(id_, result, self.curr_check_in, self.curr_check_out)
 
-    def write_result(self, out_config):
-        self.dataframe_to_s3(**out_config)
+    def write_result(self, data, out_config):
+        self.dataframe_to_s3(data, **out_config)
