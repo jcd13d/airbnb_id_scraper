@@ -164,3 +164,12 @@ Notes
 * MAKE CONFIG S3/AWS DRIVEN, RUN ON LAMBDA?
 
 Took about 30 min 25 IDs 90 days prices
+
+Once we get going...
+* look at what percent of listings are blocked x dates out
+  * this can inform how much pricing we should be pulling
+    and how far out
+* does it work to just pull the prices for the days we see
+  calendars get blocked? 
+  * and pull full pricing for a sample of listings to 
+    model how pricing dynamics influence occupancy etc
