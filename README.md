@@ -160,8 +160,8 @@
 
 Notes
 * NEED TO DELETE AFTER POSTPROCESS
-* ADD METADATA TABLE FOR SCRAPERS
 * MAKE CONFIG S3/AWS DRIVEN, RUN ON LAMBDA?
+* LOGGING
 
 50 ids 20 days prices, about 60 cents for 12K listings
 Took about 30 min 25 IDs 90 days prices
@@ -174,3 +174,5 @@ Once we get going...
   calendars get blocked? 
   * and pull full pricing for a sample of listings to 
     model how pricing dynamics influence occupancy etc
+* estimate for time needed to run in config creator, 
+  dynamically create timeout period 
