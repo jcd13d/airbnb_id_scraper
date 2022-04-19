@@ -7,13 +7,13 @@
     "evaluateOnExit": []
   },
   "containerProperties": {
-    "image": "033046933810.dkr.ecr.us-east-1.amazonaws.com/scraper-1",
+    "image": "443188464014.dkr.ecr.us-east-1.amazonaws.com/scraper-1:latest",
     "command": [
       "python",
       "main.py"
     ],
-    "executionRoleArn": "arn:aws:iam::033046933810:role/ecsTaskExecutionRole",
-    "jobRoleArn": "arn:aws:iam::033046933810:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::443188464014:role/ecsTaskExecutionRole",
+    "jobRoleArn": "arn:aws:iam::443188464014:role/ecsTaskExecutionRole",
     "volumes": [],
     "environment": [],
     "mountPoints": [],
@@ -45,7 +45,7 @@
     }
   },
   "timeout": {
-    "attemptDurationSeconds": 60
+    "attemptDurationSeconds": 1800
   },
   "tags": {},
   "propagateTags": false,

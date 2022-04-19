@@ -160,8 +160,14 @@
 
 Notes
 * NEED TO DELETE AFTER POSTPROCESS
-* MAKE CONFIG S3/AWS DRIVEN, RUN ON LAMBDA?
 * LOGGING
+* put on prod account
+  * config creator
+    * set up ecs, start recurring rule
+  * id scraper
+    * set up batch, start recurring rule
+  * postprocessor
+    * set up emr, call from lambda?
 
 50 ids 20 days prices, about 60 cents for 12K listings
 Took about 30 min 25 IDs 90 days prices
@@ -176,3 +182,22 @@ Once we get going...
     model how pricing dynamics influence occupancy etc
 * estimate for time needed to run in config creator, 
   dynamically create timeout period 
+
+
+
+# Setup
+* Create ECR repo
+* Build container
+* Push
+* Update batch envi config VPC info
+* Create batch environment
+* Create batch job queue
+* Update batch job def
+* Register batch job definition
+* Create recurring rule
+* Create target, add to rule
+  * had to use UI to create ARN from EventBridge UI
+
+TODO need to create rule target dynamically batch configure (lambda in create config?)
+  * in config creator, update target for lambda function that runs
+    ID scraper - should be easy

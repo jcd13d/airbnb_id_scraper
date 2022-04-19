@@ -14,7 +14,7 @@ def price_string_to_int(string):
         pos_neg = -1
         string = string[1:]
 
-    return pos_neg*int(string[1:]), string[0]
+    return pos_neg*float(string[1:]), string[0]
 
 
 def parse_pricing(id, response, check_in, check_out):
@@ -22,7 +22,7 @@ def parse_pricing(id, response, check_in, check_out):
     try:
         df = parse_pricing_helper(id, response, check_in, check_out)
     except ValueError as e:
-        print(json.dumps(json.loads(response.text), indent=4))
+        # print(json.dumps(json.loads(response.text), indent=4))
         print(f"Value Error in price parsing: {e}")
 
     return df
@@ -55,19 +55,20 @@ def parse_pricing_helper(id, response, check_in, check_out):
     for item in pricing_items:
         description = item['description']
         price, currency = price_string_to_int(item['priceString'])
+        print("prinstatement", price, currency, item['priceString'], description)
 
         if description == "Cleaning fee":
-            data_dict["cleaning_fee"].append(price)
+            data_dict["cleaning_fee"].append(float(price))
         elif description == "Service fee":
-            data_dict["service_fee"].append(price)
+            data_dict["service_fee"].append(float(price))
         elif "night" in description:
-            data_dict["total_price"].append(price)
-            data_dict["total_price_description"].append(description)
-            data_dict['currency'].append(currency)
-            data_dict['pull_time'].append(time)
+            data_dict["total_price"].append(float(price))
+            data_dict["total_price_description"].append(str(description))
+            data_dict['currency'].append(str(currency))
+            data_dict['pull_time'].append(str(time))
             data_dict['id'].append(id)
-            data_dict['check_in'] = check_in
-            data_dict['check_out'] = check_out
+            data_dict['check_in'] = str(check_in)
+            data_dict['check_out'] = str(check_out)
 
     for feature in features:
         if len(data_dict[feature]) == 0:

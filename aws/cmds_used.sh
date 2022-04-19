@@ -24,6 +24,10 @@ aws s3 cp config s3://jd-s3-test-bucket9/test_configs/ --recursive
 aws s3api list-objects --bucket jd-s3-test-bucket9
 
 
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 443188464014.dkr.ecr.us-east-1.amazonaws.com
+docker buildx build --platform=linux/amd64 -t scraper-1 .
+docker tag scraper-1:latest 443188464014.dkr.ecr.us-east-1.amazonaws.com/scraper-1:latest
+docker push 443188464014.dkr.ecr.us-east-1.amazonaws.com/scraper-1:latest
 
 # USED LOCALLY DOCKER
 docker buildx build --platform=linux/amd64 -t scraper-1 .
@@ -53,3 +57,8 @@ aws s3api delete-object --bucket jd-s3-test-bucket9 --key data/reviews/part.0.pa
 aws s3 rm s3://jd-s3-test-bucket9/ --recursive --exclude "*" --include "data/reviews/*"
 
 aws batch submit-job --cli-input-json file://config/batch_array_job_sub.json
+
+
+# chron job run every day at 1AM EST
+aws events put-rule --name "daily-id-scraper-job" --schedule-expression "cron(0 5 * * ? *)"
+aws events put-targets --rule "daily-id-scraper-job" --cli-input-json file://aws/eventbridge_target.json

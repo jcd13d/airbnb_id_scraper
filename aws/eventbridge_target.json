@@ -1,0 +1,20 @@
+{
+  "Rule": "daily-id-scraper-job",
+  "Targets": [
+    {
+      "Id": "daily-scraper-batch-target",
+      "Arn": "arn:aws:batch:us-east-1:443188464014:job-queue/batch-queue-cli",
+      "RoleArn": "arn:aws:iam::443188464014:role/service-role/Amazon_EventBridge_Invoke_Batch_Job_Queue_361198795",
+      "BatchParameters": {
+        "JobDefinition": "aws-batch-scraper-1",
+        "JobName": "running-scraper-1",
+        "ArrayProperties": {
+          "Size": 2
+        },
+        "RetryStrategy": {
+          "Attempts": 1
+        }
+      }
+    }
+  ]
+}
