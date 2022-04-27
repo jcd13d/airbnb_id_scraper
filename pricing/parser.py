@@ -66,7 +66,7 @@ def parse_pricing_helper(id, response, check_in, check_out):
             data_dict["total_price_description"].append(str(description))
             data_dict['currency'].append(str(currency))
             data_dict['pull_time'].append(str(time))
-            data_dict['id'].append(id)
+            data_dict['id'].append(int(id))
             data_dict['check_in'] = str(check_in)
             data_dict['check_out'] = str(check_out)
 
