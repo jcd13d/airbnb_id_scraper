@@ -62,3 +62,25 @@ aws batch submit-job --cli-input-json file://config/batch_array_job_sub.json
 # chron job run every day at 1AM EST
 aws events put-rule --name "daily-id-scraper-job" --schedule-expression "cron(0 5 * * ? *)"
 aws events put-targets --rule "daily-id-scraper-job" --cli-input-json file://aws/eventbridge_target.json
+
+zip ./lambda_launch_batch.zip ./lambda_launch_batch.py
+
+aws lambda create-function --function-name trigger-id-scrapers-batch \
+--zip-file fileb://lambda_launch_batch.zip --handler lambda_launch_batch.handler --runtime python3.8 \
+--role arn:aws:iam::443188464014:role/lambda-batch-role --timeout 20
+
+aws lambda update-function-code --function-name trigger-id-scrapers-batch --zip-file fileb://lambda_launch_batch.zip
+
+aws lambda invoke --function-name trigger-id-scrapers-batch --payload '{"test": "hello"}' response.txt --cli-binary-format raw-in-base64-out
+
+aws events put-targets --rule "daily-id-scraper-job" --cli-input-json file://aws/eventbridge_target.json
+
+aws events list-targets-by-rule --rule "daily-id-scraper-job"
+aws events remove-targets --rule "daily-id-scraper-job" --ids "daily-scraper-batch-target"
+
+aws lambda add-permission \
+--function-name trigger-id-scrapers-batch \
+--statement-id datily-id-scraper-job \
+--action 'lambda:InvokeFunction' \
+--principal events.amazonaws.com \
+--source-arn arn:aws:events:us-east-1:443188464014:rule/daily-id-scraper-job
