@@ -62,8 +62,8 @@
         ],
         "api_url": "https://www.airbnb.com/api/v3/PdpAvailabilityCalendar",
         "proxies": {
-          "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112",
-          "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112"
+          "http": "",
+          "https": ""
         }
       },
       "out_config": {
