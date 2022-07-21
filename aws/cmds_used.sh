@@ -84,3 +84,5 @@ aws lambda add-permission \
 --action 'lambda:InvokeFunction' \
 --principal events.amazonaws.com \
 --source-arn arn:aws:events:us-east-1:443188464014:rule/daily-id-scraper-job
+
+export AWS_DEFAULT_PROFILE=Justin

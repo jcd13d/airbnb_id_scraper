@@ -35,7 +35,10 @@ def parse_pricing_helper(id, response, check_in, check_out):
     # TDOO need to handle negative price and commas
     # make area for negative price - early bird discount.. be sure to log every time we find a
     # key we dont recognize
-    pricing_items = json.loads(response.text)['data']['presentation']['stayProductDetailPage']['sections']['sections'][0]['section']['barPrice']['explanationData']['priceGroups'][0]['items']
+    # pricing_items = json.loads(response.text)['data']['presentation']['stayProductDetailPage']['sections']['sections'][0]['section']['barPrice']['explanationData']['priceGroups'][0]['items']
+    # changed start of june I think
+    pricing_items = json.loads(response.text)['data']['presentation']['stayProductDetailPage']['sections']['sections'][0][
+        'section']['structuredDisplayPrice']['explanationData']['priceDetails'][0]['items']
     data_dict = {}
     time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     features = [

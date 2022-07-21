@@ -15,4 +15,4 @@ ENV PYTHONPATH "${PYTHONPATH}:/usr/src/app"
 CMD ["curl", "169.254.170.2\$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"]
 CMD ["python", "main.py"]
 
-# docker buildx build --platform=linux/amd64 -t testrepo .
+# docker buildx build --platform=linux/amd64 -t scraper-1 .

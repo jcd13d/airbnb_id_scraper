@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 
 
-def request_pricing_id(id):
+def request_pricing_id(id, proxies, obj=None):
     # TODO eventually want to do this better, create db mapping and hit that
     # internally before doing an extra external ping
     url = f"https://www.airbnb.com/rooms/{int(id)}?federated_search_id=fea61919-9f66-4005-a6cd-4a979c5b045e&source_impression_id=p3_1647145020_gJKhEqRJmmrMnYcL"
@@ -36,9 +36,11 @@ def request_pricing_id(id):
     #     "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112",
     #     "https": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112"
     # }
-    proxies = None
+    # proxies = None
     print(url)
     r = requests.get(url, proxies=proxies, headers=headers, timeout=4)  # , params=params)
+    if obj:
+        obj.last_request = r.text
     soup = BeautifulSoup(r.content, 'html.parser')
     permission = soup.find("script", {"id": "data-deferred-state"})
 
@@ -54,8 +56,13 @@ def request_pricing_id(id):
     return new_id
 
 
-def get_pricing_id(id):
-    new_id = request_pricing_id(id)
+def get_pricing_id(id, config, obj=None):
+    # print(config['configs'].keys())
+    if "proxies" in config["configs"][0]['request_config']:
+        proxies = config["configs"][0]['request_config'].get("proxies")
+    else:
+        proxies = None
+    new_id = request_pricing_id(id, proxies, obj=obj)
     return new_id
 
 

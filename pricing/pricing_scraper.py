@@ -28,7 +28,7 @@ class PricingScraper(IdScraper):
             id_config = json.load(f)
         return id_config['id_configs'][self.index]
 
-    def get_pricing_id(self, id):
+    def get_pricing_id(self, id, config):
 
         try:
             return self.id_map[id]
@@ -41,13 +41,14 @@ class PricingScraper(IdScraper):
             if i > 0:
                 print(f"try {i + 1} getting pricing ID")
             try:
-                new_id = get_pricing_id(id)
+                new_id = get_pricing_id(id, self.config, self)
             except requests.exceptions.ReadTimeout as e:
                 print(f"Read timeout in pricing ID... issue w short timeout wait: {e}")
                 continue
             except KeyError as e:
                 self.key_error += 1
                 print(f"Key error in pricing id: {e}")
+                print(self.last_request)
                 continue
             except AttributeError as e:
                 self.attribute_error += 1
@@ -80,7 +81,7 @@ class PricingScraper(IdScraper):
     def insert_id_into_config(self, id, config):
         cfg = copy.deepcopy(config)
         # TODO do this id thing dynamically configure the path to id
-        cfg['request_config']['variables']['id'] = self.get_pricing_id(id)
+        cfg['request_config']['variables']['id'] = self.get_pricing_id(id, self.config)
         self.curr_check_in = config['request_config']['variables']['pdpSectionsRequest']['checkIn']
         self.curr_check_out = config['request_config']['variables']['pdpSectionsRequest']['checkOut']
         cfg['request_config']['params'][4][1] = json.dumps(cfg['request_config']['variables'])

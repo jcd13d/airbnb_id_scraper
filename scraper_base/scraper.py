@@ -33,6 +33,7 @@ class IdScraper:
         self.attribute_error = 0
         self.pulls_per_id = len(self.config['configs'])
         self.metadata = {}
+        self.last_request = None
 
     def get_metadata(self):
         self.metadata["SSL Errors"] = [self.ssl]
@@ -146,7 +147,10 @@ class IdScraper:
             if i > 0:
                 print(f"try {i + 1} making request")
             try:
+                # print(requests.get("https://ipv4.icanhazip.com").text)
                 response = self.make_request(headers, params, api_url, proxies)
+                self.last_request = response.text
+                # print(response.json())
             except urllib3.util.retry.MaxRetryError as e:
                 self.max_retry += 1
                 traceback.print_exc()
@@ -230,6 +234,11 @@ class IdScraper:
                 print(f"Key error in request/parse: {e}")
                 if "'barPrice'" == str(e):
                     print(f"Retrying because {e} error")
+                    # print(self.last_request)
+                    continue  # continues thru loop if fails
+                elif "'structuredDisplayPrice'" == str(e):
+                    print(f"Retrying because {e} error")
+                    # print(self.last_request)
                     continue  # continues thru loop if fails
             except TypeError as e:
                 self.type_error += 1
