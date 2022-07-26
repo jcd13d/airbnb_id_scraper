@@ -30,6 +30,6 @@ class ReviewScraper(IdScraper):
     def parse_result(self, id_, result):
         return parse_reviews(id_, result)
 
-    def write_result(self, out_config):
-        self.dataframe_to_s3(**out_config)
+    def write_result(self, data, out_config):
+        self.dataframe_to_s3(data, **out_config)
 
