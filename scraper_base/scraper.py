@@ -12,8 +12,9 @@ from config.constants import NUM_REQUEST_TRIES
 
 
 class IdScraper:
-    def __init__(self, scraper_index):
+    def __init__(self, scraper_index, trigger_time):
         self.index = scraper_index
+        self.trigger_time = trigger_time
         self.s3 = s3fs.S3FileSystem()
         self.s3_myopen = self.s3.open
         self.config = self.get_config()
@@ -253,6 +254,12 @@ class IdScraper:
 
         return parsed
 
+    def _common_postprocessing(self):
+        self.data["trigger_time"] = self.trigger_time
+
+    def get_current_time(self):
+        return datetime.datetime.now().strftime("%Y%m%dT%H%M%S")
+
     def tear_down(self):
         self.s3.end_transaction()
         self.s3 = None
@@ -270,8 +277,10 @@ class IdScraper:
                     print("Received None from request and parse")
                     traceback.print_exc()
 
+        self._common_postprocessing()
         self.write_result(self.data, cfg['out_config'])
         self.write_metadata(cfg['metadata_config']) if 'metadata_config' in cfg.keys() else None
+        # print(self.data)
         self.print_error_stats()
 
         self.tear_down()

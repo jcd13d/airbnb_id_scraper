@@ -17,10 +17,10 @@ def price_string_to_int(string):
     return pos_neg*float(string[1:]), string[0]
 
 
-def parse_pricing(id, response, check_in, check_out):
+def parse_pricing(id, response, check_in, check_out, time):
     df = None
     try:
-        df = parse_pricing_helper(id, response, check_in, check_out)
+        df = parse_pricing_helper(id, response, check_in, check_out, time)
     except ValueError as e:
         # print(json.dumps(json.loads(response.text), indent=4))
         print(f"Value Error in price parsing: {e}")
@@ -28,7 +28,7 @@ def parse_pricing(id, response, check_in, check_out):
     return df
 
 
-def parse_pricing_helper(id, response, check_in, check_out):
+def parse_pricing_helper(id, response, check_in, check_out, time):
     # TODO parse this more reliably, configure path?
     # theres another price location in the return we can parse... looks like the same info though.
     # TODO need to handle when no cleaning fee
@@ -40,7 +40,7 @@ def parse_pricing_helper(id, response, check_in, check_out):
     pricing_items = json.loads(response.text)['data']['presentation']['stayProductDetailPage']['sections']['sections'][0][
         'section']['structuredDisplayPrice']['explanationData']['priceDetails'][0]['items']
     data_dict = {}
-    time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    # time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     features = [
         'cleaning_fee',
         'service_fee',
@@ -68,7 +68,7 @@ def parse_pricing_helper(id, response, check_in, check_out):
             data_dict["total_price"].append(float(price))
             data_dict["total_price_description"].append(str(description))
             data_dict['currency'].append(str(currency))
-            data_dict['pull_time'].append(str(time))
+            data_dict['pulled'].append(str(time))
             data_dict['id'].append(int(id))
             data_dict['check_in'] = str(check_in)
             data_dict['check_out'] = str(check_out)

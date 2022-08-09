@@ -6,8 +6,8 @@ import copy
 
 
 class OccupancyScraper(IdScraper):
-    def __init__(self, scraper_index):
-        super().__init__(scraper_index)
+    def __init__(self, scraper_index, trigger_time):
+        super().__init__(scraper_index, trigger_time)
 
     def get_config(self):
         with self.s3.open(OCC_CONFIG_LOCATION, "r") as f:
@@ -27,7 +27,7 @@ class OccupancyScraper(IdScraper):
         return cfg
 
     def parse_result(self, id_, result):
-        parsed = parse_occupancy(id_, result)
+        parsed = parse_occupancy(id_, result, self.get_current_time())
 
         return parsed
 

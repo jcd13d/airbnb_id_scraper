@@ -3,9 +3,8 @@ import datetime
 import json
 
 
-def parse_occupancy(id, response):
+def parse_occupancy(id, response, time):
     occ_dict = json.loads(response.text)
-    time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     data_dict = {}
     data_dict["date"] = []
     data_dict["available"] = []

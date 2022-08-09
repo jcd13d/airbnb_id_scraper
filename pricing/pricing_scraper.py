@@ -12,8 +12,8 @@ import copy
 
 
 class PricingScraper(IdScraper):
-    def __init__(self, scraper_index):
-        super().__init__(scraper_index)
+    def __init__(self, scraper_index, trigger_time):
+        super().__init__(scraper_index, trigger_time)
         self.curr_check_in = None
         self.curr_check_out = None
         self.id_map = {}
@@ -89,7 +89,7 @@ class PricingScraper(IdScraper):
         return cfg
 
     def parse_result(self, id_, result):
-        return parse_pricing(id_, result, self.curr_check_in, self.curr_check_out)
+        return parse_pricing(id_, result, self.curr_check_in, self.curr_check_out, self.get_current_time())
 
     def write_result(self, data, out_config):
         self.dataframe_to_s3(data, **out_config)
