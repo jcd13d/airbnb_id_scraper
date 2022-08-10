@@ -87,6 +87,7 @@ class IdScraper:
 
     def dataframe_to_s3(self, data, s3_path, partitionBy: list=[]):
         print("writing df")
+        self.data = self.data.dropna(subset="id")
 
         path = os.path.join(s3_path, f"array_{self.index}", self.run_time)
 

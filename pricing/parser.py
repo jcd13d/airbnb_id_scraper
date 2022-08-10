@@ -49,7 +49,7 @@ def parse_pricing_helper(id, response, check_in, check_out, time):
         'check_out',
         'total_price_description',
         'currency',
-        'pull_time',
+        'pulled',
         'id'
     ]
     for feature in features:
