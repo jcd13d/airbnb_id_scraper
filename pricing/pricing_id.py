@@ -9,28 +9,28 @@ def request_pricing_id(id, proxies, obj=None):
     url = f"https://www.airbnb.com/rooms/{int(id)}?federated_search_id=fea61919-9f66-4005-a6cd-4a979c5b045e&source_impression_id=p3_1647145020_gJKhEqRJmmrMnYcL"
     headers = {
         "authority": "www.airbnb.com",
-        "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"98\", \"Google Chrome\";v=\"98\"",
-        "x-airbnb-supports-airlock-v2": "true",
-        "x-airbnb-api-key": "d306zoyjsyarp7ifhu67rjxn52tv0t20",
-        "x-niobe-short-circuited": "true",
-        "dpr": "2",
-        "sec-ch-ua-platform": "\"macOS\"",
-        "device-memory": "8",
-        "x-airbnb-graphql-platform-client": "minimalist-niobe",
-        "sec-ch-ua-mobile": "?0",
-        "x-csrf-without-token": "1",
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36",
-        "viewport-width": "1021",
-        "content-type": "application/json",
         "accept": "*/*",
-        "ect": "4g",
-        "x-airbnb-graphql-platform": "web",
-        "sec-fetch-site": "same-origin",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-dest": "empty",
-        "referer": "https://www.airbnb.com/rooms/521173997290845633?federated_search_id=2023228d-2227-4932-a115-3f37b569609b&source_impression_id=p3_1646263979_9WKGsxi87LQ9FpyW",
         "accept-language": "en-US,en;q=0.9",
-        "cookie": "bev=1645828675_ZTc1YWVjMWQ4MzI5; cdn_exp_44f412bd466ffe35b=treatment; cdn_exp_90bbb75bab0d2037e=control; cdn_exp_dcefc80b9923f2e83=treatment; cdn_exp_f7233d62d5cb13f74=treatment; tzo=-300; _gcl_au=1.1.636745930.1645828676; country=US; cdn_exp_ca61f345a6cd685ce=control; ak_bmsc=6CF5D3D9913E9D468EE35E9F56E5C661~000000000000000000000000000000~YAAQU2gBF5VUuSB/AQAAymH0TA7b22HK0vFNxWWlzhp+C2eubY9+uZY9U+3uSKC/3LrFy4XmEPObptzqZTkgKHa/VsN//XX2Oeay04w0AIGqYJwEe2cFFCEVUYmqi+VMZj46n7ZpETvhi7ybSqLOfgNuA0h2RNwPTeyBr8OhCncLAEYaUVFOT5QD3NQdt9HdF+bM6hP4FwX+vW9DabJRSjcgRlHL/uwYNgPoS/bBpNz1nhwcSm4kb5lOArhborHVBFL+9HajZz6aslnny9d9xQni/l5obnbbGw3k2tWM13wcKbJx8ZGRurlhQG30MWn3Gd3qaWlblCPB88j+PeoDg/xYoEWm8rzQMQ8hpOkNsoU1BYHamitTsgXGp8lU4dHRfDZOFGTwh5TQow==; bm_sz=ED3863E44B495189A7DCF301626B1D56~YAAQU2gBF5ZUuSB/AQAAymH0TA5fc/HefRrevA7IJFkpisersAayCBj3MHmMNElsBYg+x1uMJ3P4mnq7XviYjGviVLU1691YbajW8tWd81jQIflqYtYV/lLrCBExLdNAJAkGEEd9ox78m2yWaVzKvl5/HzffYOXx79///SC4bhEQkIVYKlxouzVpkuev8+sSR/hyqybVdq57W9ffdoal/LomHkIHzfN3jNZYy+iSRkYvoapPOiaojnZBnmDd1NerSsZbYEB8JHgJHMJITxR6t3K6hGIJHurZ3Sg6zbO0sGHl4D8=~3160368~3486530; _csrf_token=V4%24.airbnb.com%247TbHgzQTqzE%24zfk-o9QuLdvUq3AeBgWhktwScEBaTBQ5xJaKUYss9FQ%3D; jitney_client_session_id=24fd990e-9fc7-4d28-b112-a0d4480132b6; jitney_client_session_created_at=1646263558; flags=0; OptanonAlertBoxClosed=NR; AMP_TOKEN=%24NOT_FOUND; _gid=GA1.2.120232748.1646263559; frmfctr=wide; _gat=1; cfrmfctr=MOBILE; cbkp=2; _ga_2P6Q8PGG16=GS1.1.1646263559.9.1.1646263989.2; previousTab=%7B%22id%22%3A%226ef17b29-dadb-4828-95cb-1267c601156d%22%2C%22url%22%3A%22https%3A%2F%2Fwww.airbnb.com%2Frooms%2F521173997290845633%3Ffederated_search_id%3D2023228d-2227-4932-a115-3f37b569609b%26source_impression_id%3Dp3_1646263979_9WKGsxi87LQ9FpyW%22%7D; _user_attributes=%7B%22curr%22%3A%22USD%22%2C%22enable_auto_translate%22%3Afalse%2C%22guest_exchange%22%3A1.0%2C%22device_profiling_session_id%22%3A%221645828675--dad67b3d1d514e70d4e4d39a%22%2C%22giftcard_profiling_session_id%22%3A%221646263558--6ad10c8c78f4d3b40f529a98%22%2C%22reservation_profiling_session_id%22%3A%221646263558--80b96bdb40176e3cb989caca%22%7D; _ga=GA1.2.28538937.1645828676; _uetsid=1e3f6fc09a8011eca62a0f40f6e5e095; _uetvid=93c35a50968b11ecb2c259648f5ad98d; _abck=D1D79E50FC84F6B90D9C1F3977CB21F3~0~YAAQU2gBF0t9uSB/AQAAK/f6TAdMkRcvFbhbAO2FV1lmbZtG3sesfCIaSL5ChSdCWmw+x1T6V+B5tFzBkUIvyXw3mFluagGJoidyMKuZ28SzuYk8NHoPd9fUhbetq/aKqb3fT7VItw3d3Ycunxkrv1+O7aO2zM8MJgBhuLYhmmvsm/TAk+DE+7mx45L09R77qiiypSfDWMf/by6u3n/LXP7ynGs2EpVZjM/su6VISWQxdtr86rVHaEPS6YAieeDYD1xg5dxDlgOwUJ6BEq5Hs+vc5JKELaT/cnF7jmOhTnTVfG/hRX5xDzkk1lGWOsYCuNwYVT8R3+gpUjVcCncIZQWtaN51qBERt4p78C9YUk3kww42rXdCCb520p8NmqcyLpi77l1lJ8rdd7hCds+vAkj76rCyphbO~-1~-1~-1; jitney_client_session_updated_at=1646263990; bm_sv=0844AC51077E7C74334C9FED97AA8D6D~SzNBU9jvyV+3Y88mkoiRCquXDyPtCc+Rhf8/uh1LVMCokc2NUHvOIRzgZz7vXKDTbWzMQkE1IweJgWNhUKv79VjDs6mQq7wZXUafx5t5pQlp4krcjlczK+JoocB8MCu93foSzc/kNKEe4Wn9Ktx4hPpmdBhGEaJAK9pU/8lOWMM="
+        "content-type": "application/json",
+        "device-memory": "8",
+        "dpr": "0.9",
+        "ect": "4g",
+        "referer": "https://www.airbnb.com/rooms/134238?adults=1&category_tag=Tag%3A8536&children=0&infants=0&search_mode=flex_destinations_search&check_in=2023-01-11&check_out=2023-01-17&federated_search_id=3b667d77-ae15-4f21-930a-ddcdf0a046ee&source_impression_id=p3_1667948539_QD7zmlrahlewwCFE",
+        "sec-ch-ua": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"macOS\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "viewport-width": "2598",
+        "x-airbnb-api-key": "d306zoyjsyarp7ifhu67rjxn52tv0t20",
+        "x-airbnb-graphql-platform": "web",
+        "x-airbnb-graphql-platform-client": "minimalist-niobe",
+        "x-airbnb-supports-airlock-v2": "true",
+        "x-client-request-id": "02g3t4q1s9ajma1lgth2x0uyolnf",
+        "x-csrf-without-token": "1",
+        "x-niobe-short-circuited": "true"
     }
     # proxies = {
     #     "http": "http://jdiemmanuele:pXvpvIJKHLLnr0Mk_country-UnitedStates@52.55.139.214:31112",
@@ -70,5 +70,3 @@ if __name__ == "__main__":
     # testing
     get_pricing_id(1)
     get_pricing_id(21026933.0)
-
-
