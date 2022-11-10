@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.10
 
 ADD main.py /
 ADD occupancy /occupancy
@@ -8,6 +8,7 @@ ADD scraper_base /scraper_base
 ADD config/constants.py /config/constants.py
 ADD requirements.txt /
 
+# RUN sudo curl https://sh.rustup.rs -sSf | sh
 RUN pip install -r requirements.txt
 
 ENV PYTHONPATH "${PYTHONPATH}:/usr/src/app"
